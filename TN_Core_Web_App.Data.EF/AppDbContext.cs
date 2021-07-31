@@ -14,6 +14,11 @@ using TN_Core_Web_App.Data.Interfaces;
 
 namespace TN_Core_Web_App.Data.EF
 {
+    /// <summary>
+    /// trong AppDbContext này ta kế thừa IdentityDbContext sử dụng luôn cái Identity mà không cần sử dụng cái dbcontext thông thường 
+    /// Để sử dụng IdentityDbContext ta cần cài Microsoft.AspNetCore.Identity;using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+//,Microsoft.EntityFrameworkCore.SqlServer,Microsoft.Extensions.Configuration)
+    /// </summary>
     public class AppDbContext: IdentityDbContext<AppUser,AppRole,Guid>
     {
         public AppDbContext(DbContextOptions options): base(options)
@@ -85,6 +90,11 @@ namespace TN_Core_Web_App.Data.EF
 
             base.OnModelCreating(builder);
         }
+        /// <summary>
+        /// Tự động tất cả khi mà set 1 entity bất kỳ trong Idatetracking sẽ tự động thêm các trường tròn IDateTracking
+        /// để không phải gắn bằng tay 
+        /// </summary>
+        /// <returns> </returns>
         public override int SaveChanges()
         {
             var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added);

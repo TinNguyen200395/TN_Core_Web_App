@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Data;
+using TN_Core_Web_App.Data.EF;
+using TN_Core_Web_App.Data.Entities;
 
 namespace TN_Core_Web_App
 {
@@ -27,18 +29,25 @@ namespace TN_Core_Web_App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    o=>o.MigrationsAssembly("TN_Core_Web_App.Data.EF")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDatabaseDeveloperPageExceptionFilter();
+         
+
+            services.AddIdentity<AppUser,AppRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+            services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+            services.AddTransient<DbInitializer>();
             services.AddControllersWithViews();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -66,6 +75,7 @@ namespace TN_Core_Web_App
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            dbInitializer.Seed().Wait();
         }
     }
 }

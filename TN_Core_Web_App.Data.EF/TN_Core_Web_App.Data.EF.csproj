@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Responsitories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TN_Core_Web_App.Data\TN_Core_Web_App.Data.csproj" />
+    <ProjectReference Include="..\TN_Core_Web_App.Infrastructure\TN_Core_Web_App.Infrastructure.csproj" />
+    <ProjectReference Include="..\TN_Core_Web_App.Utilities\TN_Core_Web_App.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

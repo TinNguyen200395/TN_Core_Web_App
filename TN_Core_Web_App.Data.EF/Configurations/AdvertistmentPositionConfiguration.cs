@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace TN_Core_Web_App.Data.EF.Configurations
     {
         public override void Configure(EntityTypeBuilder<AdvertistmentPosition> entity)
         {
-            entity.Property(c => c.Id).HasMaxLength(20).IsRequired();
-            // etc.
+            entity.Property(c => c.Id).HasMaxLength(20)
+                .IsRequired().HasColumnType("varchar(20)");
         }
     }
 }

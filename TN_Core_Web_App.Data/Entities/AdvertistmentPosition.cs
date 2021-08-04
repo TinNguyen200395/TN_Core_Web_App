@@ -8,7 +8,6 @@ namespace TN_Core_Web_App.Data.Entities
     [Table("AdvertistmentPositions")]
     public class AdvertistmentPosition : DomainEntity<string>
     {
-        [StringLength(20)]
         public string PageId { get; set; }
 
         [StringLength(250)]

@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,10 @@
     <ProjectReference Include="..\TN_Core_Web_App.Infrastructure\TN_Core_Web_App.Infrastructure.csproj" />
     <ProjectReference Include="..\TN_Core_Web_App.Services\TN_Core_Web_App.Services.csproj" />
     <ProjectReference Include="..\TN_Core_Web_App.Utilities\TN_Core_Web_App.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -112,7 +112,7 @@
     },
     geStatus: function (status) {
         if (status == 1)
-            return '<span class="badge bg-green">Active</span>'; 
+            return '<span class="badge bg-green">Active</span>';
         else
             return '<span class="badge bg-red">Lock</span>';
     },
@@ -140,5 +140,12 @@
         }
         return roots;
     }
-
 }
+
+
+        $(document).ajaxSend(function (e, xhr, options) {
+        if (options.type.toUpperCase() == "POST" || options.type.toUpperCase() == "PUT") {
+            var token = $('form').find("input[name='__RequestVerificationToken']").val();
+            xhr.setRequestHeader("RequestVerificationToken", token);
+        }
+    });

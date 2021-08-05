@@ -106,7 +106,7 @@ namespace TN_Core_Web_App
             {
                 endpoints.MapControllerRoute(
                     name: "area",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

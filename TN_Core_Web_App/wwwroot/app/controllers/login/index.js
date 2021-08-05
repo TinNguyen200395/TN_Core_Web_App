@@ -1,39 +1,50 @@
-﻿var loginControler = function () {
+﻿var loginController = function () {
     this.initialize = function () {
         registerEvents();
     }
-    var registerEvents = function () {
 
+    var registerEvents = function () {
+        $('#frmLogin').validate({
+            errorClass: 'red',
+            ignore: [],
+            lang: 'vi',
+            rules: {
+                userName: {
+                    required: true
+                },
+                password: {
+                    required: true
+                }
+            }
+        });
         $('#btnLogin').on('click', function (e) {
-            e.preventDefault();
-            var user = $('#txtUserName').val();
-            var password = $('#txtPassword').val();
-            login(user, password);
+            if ($('#frmLogin').valid()) {
+                e.preventDefault();
+                var user = $('#txtUserName').val();
+                var password = $('#txtPassword').val();
+                login(user, password);
+            }
+
         });
     }
+
     var login = function (user, pass) {
-        // truyền vào một đối tượng 
         $.ajax({
             type: 'POST',
             data: {
                 UserName: user,
                 Password: pass
             },
-            // tự truyền lên 
-            dataType: 'json',
-            // đẩy lên 
+            dateType: 'json',
             url: '/admin/login/authen',
-            // nếu mà thành công 
             success: function (res) {
                 if (res.Success) {
                     window.location.href = "/Admin/Home/Index";
-
                 }
                 else {
-                    tn.notify('Login unsuccessful!', 'error');
+                    tedu.notify('Đăng nhập không đúng', 'error');
                 }
             }
-
         })
     }
 }

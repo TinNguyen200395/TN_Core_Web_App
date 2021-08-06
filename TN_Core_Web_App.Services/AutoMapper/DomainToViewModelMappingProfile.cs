@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Entities;
 using TN_Core_Web_App.Services.ViewModels.Product;
+using TN_Core_Web_App.Services.ViewModels.System;
 
 namespace TN_Core_Web_App.Services.AutoMapper
 {
@@ -14,6 +15,8 @@ namespace TN_Core_Web_App.Services.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<ProductCategory, ProductCategoryViewModel>();
+            CreateMap<Function, FunctionViewModel>();
+
         }
     }
 }

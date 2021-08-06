@@ -70,13 +70,18 @@ namespace TN_Core_Web_App
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
             services.AddTransient<DbInitializer>();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
-
-            services.AddTransient<IProductCategoryResponsitory, ProductCategoryRepository>();
-            services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddControllersWithViews();
 
-            services.AddMvc();
             services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+            services.AddMvc();
+
+            //Responsitories
+            services.AddTransient<IProductCategoryResponsitory, ProductCategoryRepository>();
+            services.AddTransient<IFunctionRepository, FunctionRepository>();
+            //Services
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<IFunctionService, FunctionService>();
+
 
 
 

@@ -19,6 +19,7 @@ using TN_Core_Web_App.Data.EF;
 using TN_Core_Web_App.Data.EF.Responsitories;
 using TN_Core_Web_App.Data.Entities;
 using TN_Core_Web_App.Data.IRepositories;
+using TN_Core_Web_App.Helpers;
 using TN_Core_Web_App.Services.Implementation;
 using TN_Core_Web_App.Services.Interfaces;
 
@@ -68,6 +69,8 @@ namespace TN_Core_Web_App
 
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
             services.AddTransient<DbInitializer>();
+            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
+
             services.AddTransient<IProductCategoryResponsitory, ProductCategoryRepository>();
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddControllersWithViews();

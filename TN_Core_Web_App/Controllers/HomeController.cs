@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TN_Core_Web_App.Extensions;
 using TN_Core_Web_App.Models;
 
 namespace TN_Core_Web_App.Controllers
@@ -13,24 +14,26 @@ namespace TN_Core_Web_App.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
+            var email = User.GetSpecificClaim("Email");
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
+            ViewData["Message"] = "Your application description page.";
+
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Contact()
+        {
+            ViewData["Message"] = "Your contact page.";
+
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

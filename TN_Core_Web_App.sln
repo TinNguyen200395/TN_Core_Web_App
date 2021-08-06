@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TN_Core_Web_App", "TN_Core_Web_App\TN_Core_Web_App.csproj", "{24371EF6-820D-41A9-9EE5-85F5A7B70D20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TN_Core_Web_App", "TN_Core_Web_App\TN_Core_Web_App.csproj", "{24371EF6-820D-41A9-9EE5-85F5A7B70D20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Presentation", "1.Presentation", "{12BDAA4B-E482-4871-8D34-B9983C94AF6D}"
 EndProject
@@ -13,15 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Domain", "3.Domain", "{5C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Infrastructure", "4.Infrastructure", "{224E4689-5B7D-4A23-BE96-B63932687807}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TN_Core_Web_App.Services", "TN_Core_Web_App.Services\TN_Core_Web_App.Services.csproj", "{83E64671-D370-4328-9EF6-1E5287697446}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TN_Core_Web_App.Services", "TN_Core_Web_App.Services\TN_Core_Web_App.Services.csproj", "{83E64671-D370-4328-9EF6-1E5287697446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TN_Core_Web_App.Data", "TN_Core_Web_App.Data\TN_Core_Web_App.Data.csproj", "{858187AA-81BE-4BC2-AD84-3BE6B1E42A03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TN_Core_Web_App.Data", "TN_Core_Web_App.Data\TN_Core_Web_App.Data.csproj", "{858187AA-81BE-4BC2-AD84-3BE6B1E42A03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TN_Core_Web_App.Data.EF", "TN_Core_Web_App.Data.EF\TN_Core_Web_App.Data.EF.csproj", "{C9C57165-47AA-4177-ADD9-D8D7EFFCE0C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TN_Core_Web_App.Data.EF", "TN_Core_Web_App.Data.EF\TN_Core_Web_App.Data.EF.csproj", "{C9C57165-47AA-4177-ADD9-D8D7EFFCE0C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TN_Core_Web_App.Infrastructure", "TN_Core_Web_App.Infrastructure\TN_Core_Web_App.Infrastructure.csproj", "{66FAB8CC-29FB-406F-887F-4172BA6E9AF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TN_Core_Web_App.Infrastructure", "TN_Core_Web_App.Infrastructure\TN_Core_Web_App.Infrastructure.csproj", "{66FAB8CC-29FB-406F-887F-4172BA6E9AF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TN_Core_Web_App.Utilities", "TN_Core_Web_App.Utilities\TN_Core_Web_App.Utilities.csproj", "{BC759294-F8BB-4BD2-8189-0EB69487C7F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TN_Core_Web_App.Utilities", "TN_Core_Web_App.Utilities\TN_Core_Web_App.Utilities.csproj", "{BC759294-F8BB-4BD2-8189-0EB69487C7F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

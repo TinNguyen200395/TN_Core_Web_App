@@ -2,6 +2,7 @@
     this.initialize = function () {
         loadData();
         registerEvents();
+        loadCategories();
     }
 
     function registerEvents() {
@@ -11,15 +12,40 @@
             tn.configs.pageIndex = 1;
             loadData(true);
         });
+        $('#btnSearch').on('click', function () {
+            loadData();
+        });
+        $('#txtKeyword').on('keypress', function (e) {
+            if (e.which === 13) {
+                loadData();
+            }
+        });
     }
-
+    function loadCategories() {
+        $.ajax({
+            type: 'GET',
+            url: '/admin/product/GetAllCategories',
+            dataType: 'json',
+            success: function (response) {
+                var render = "<option value=''>--Select category--</option>";
+                $.each(response, function (i, item) {
+                    render += "<option value='" + item.Id + "'>" + item.Name + "</option>"
+                });
+                $('#ddlCategorySearch').html(render);
+            },
+            error: function (status) {
+                console.log(status);
+                tn.notify('Cannot loading product category data', 'error');
+            }
+        });
+    }
     function loadData(isPageChanged) {
         var template = $('#table-template').html();
         var render = "";
         $.ajax({
             type: 'GET',
             data: {
-                categoryId: null,
+                categoryId: $('#ddlCategorySearch').val(),
                 keyword: $('#txtKeyword').val(),
                 page: tn.configs.pageIndex,
                 pageSize: tn.configs.pageSize

@@ -21,6 +21,7 @@ using TN_Core_Web_App.Data.EF.Responsitories;
 using TN_Core_Web_App.Data.Entities;
 using TN_Core_Web_App.Data.IRepositories;
 using TN_Core_Web_App.Helpers;
+using TN_Core_Web_App.Infrastructure.Interfaces;
 using TN_Core_Web_App.Services;
 using TN_Core_Web_App.Services.Implementation;
 using TN_Core_Web_App.Services.Interfaces;
@@ -78,9 +79,10 @@ namespace TN_Core_Web_App
 
             services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddMvc();
-
+            services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
+            services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
             //Responsitories
-            services.AddTransient<IProductCategoryResponsitory, ProductCategoryRepository>();
+            services.AddTransient<IProductCategoryRespository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             //Services

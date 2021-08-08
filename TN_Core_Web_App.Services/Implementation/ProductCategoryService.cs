@@ -16,14 +16,16 @@ namespace TN_Core_Web_App.Services.Implementation
 {
     public class ProductCategoryService : IProductCategoryService
     {
-        private IProductCategoryResponsitory _productCategoryRepository;
+        private IProductCategoryRespository _productCategoryRepository;
         private IUnitOfWork _unitOfWork;
-        private ProductCategoryService(IProductCategoryResponsitory productCategoryResponsitory , 
+
+        public ProductCategoryService(IProductCategoryRespository productCategoryRepository,
             IUnitOfWork unitOfWork)
         {
-            _productCategoryRepository = productCategoryResponsitory;
+            _productCategoryRepository = productCategoryRepository;
             _unitOfWork = unitOfWork;
         }
+
         public ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm)
         {
             var productCategory = Mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
@@ -40,30 +42,27 @@ namespace TN_Core_Web_App.Services.Implementation
         public List<ProductCategoryViewModel> GetAll()
         {
             return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
-                    .ProjectTo<ProductCategoryViewModel>().ToList();
+                 .ProjectTo<ProductCategoryViewModel>().ToList();
         }
 
         public List<ProductCategoryViewModel> GetAll(string keyword)
         {
             if (!string.IsNullOrEmpty(keyword))
-            
                 return _productCategoryRepository.FindAll(x => x.Name.Contains(keyword)
                 || x.Description.Contains(keyword))
                     .OrderBy(x => x.ParentId).ProjectTo<ProductCategoryViewModel>().ToList();
-                else
-                    return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
-                           .ProjectTo<ProductCategoryViewModel>()
-                           .ToList();
-
-            
+            else
+                return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
+                    .ProjectTo<ProductCategoryViewModel>()
+                    .ToList();
         }
 
         public List<ProductCategoryViewModel> GetAllByParentId(int parentId)
         {
             return _productCategoryRepository.FindAll(x => x.Status == Status.Active
-                      && x.ParentId == parentId)
-                       .ProjectTo<ProductCategoryViewModel>()
-                       .ToList();
+            && x.ParentId == parentId)
+             .ProjectTo<ProductCategoryViewModel>()
+             .ToList();
         }
 
         public ProductCategoryViewModel GetById(int id)

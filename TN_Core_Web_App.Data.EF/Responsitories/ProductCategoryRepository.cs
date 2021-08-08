@@ -9,7 +9,7 @@ using TN_Core_Web_App.Data.IRepositories;
 
 namespace TN_Core_Web_App.Data.EF.Responsitories
 {
-    public class ProductCategoryRepository : EFRepository <ProductCategory, int>, IProductCategoryResponsitory
+    public class ProductCategoryRepository : EFRepository <ProductCategory, int>, IProductCategoryRespository
     {
         AppDbContext _context;
         public ProductCategoryRepository(AppDbContext context):base(context)

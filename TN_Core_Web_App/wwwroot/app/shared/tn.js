@@ -5,7 +5,6 @@
     },
     notify: function (message, type) {
         $.notify(message, {
-
             // whether to hide the notification on click
             clickToHide: true,
             // whether to auto-hide the notification
@@ -35,20 +34,18 @@
             hideDuration: 200,
             // padding between element and notification
             gap: 2
-
         });
-
     },
     confirm: function (message, okCallback) {
         bootbox.confirm({
             message: message,
             buttons: {
                 confirm: {
-                    label: 'Yes',
+                    label: 'Đồng ý',
                     className: 'btn-success'
                 },
                 cancel: {
-                    label: 'No',
+                    label: 'Hủy',
                     className: 'btn-danger'
                 }
             },
@@ -58,7 +55,6 @@
                 }
             }
         });
-
     },
     dateFormatJson: function (datetime) {
         if (datetime == null || datetime == '')
@@ -101,7 +97,7 @@
             ss = "0" + ss;
         return day + "/" + month + "/" + year + " " + hh + ":" + mm + ":" + ss;
     },
-    startingLoading: function () {
+    startLoading: function () {
         if ($('.dv-loading').length > 0)
             $('.dv-loading').removeClass('hide');
     },
@@ -110,11 +106,11 @@
             $('.dv-loading')
                 .addClass('hide');
     },
-    geStatus: function (status) {
+    getStatus: function (status) {
         if (status == 1)
-            return '<span class="badge bg-green">Active</span>';
+            return '<span class="badge bg-green">Kích hoạt</span>';
         else
-            return '<span class="badge bg-red">Lock</span>';
+            return '<span class="badge bg-red">Khoá</span>';
     },
     formatNumber: function (number, precision) {
         if (!isFinite(number)) {
@@ -142,9 +138,9 @@
     }
 }
 
-        $(document).ajaxSend(function (e, xhr, options) {
-        if (options.type.toUpperCase() == "POST" || options.type.toUpperCase() == "PUT") {
-            var token = $('form').find("input[name='__RequestVerificationToken']").val();
-            xhr.setRequestHeader("RequestVerificationToken", token);
-        }
-    });
+$(document).ajaxSend(function (e, xhr, options) {
+    if (options.type.toUpperCase() == "POST" || options.type.toUpperCase() == "PUT") {
+        var token = $('form').find("input[name='__RequestVerificationToken']").val();
+        xhr.setRequestHeader("RequestVerificationToken", token);
+    }
+});

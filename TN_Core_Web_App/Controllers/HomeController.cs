@@ -11,7 +11,6 @@ using TN_Core_Web_App.Models;
 
 namespace TN_Core_Web_App.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

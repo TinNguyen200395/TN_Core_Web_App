@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Entities;
+using TN_Core_Web_App.Services.ViewModels.Product;
 
 namespace TN_Core_Web_App.Services.AutoMapper
 {
@@ -12,9 +13,9 @@ namespace TN_Core_Web_App.Services.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
-            CreateMap<ProductCategory, ProductCategory>()
-                .ConstructUsing(c => new ProductCategory(c.Name,c.Description,c.ParentId,c.HomeOrder,c.Image,c.HomeFlag
-                ,c.SortOrder,c.Status,c.SeoPageTitle,c.SeoAlias,c.SeoKeywords,c.SeoDescription));
+            CreateMap<ProductCategoryViewModel, ProductCategory>()
+              .ConstructUsing(c => new ProductCategory(c.Name, c.Description, c.ParentId, c.HomeOrder, c.Image, c.HomeFlag,
+              c.SortOrder, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
         }
     }
 }

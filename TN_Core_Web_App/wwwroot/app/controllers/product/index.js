@@ -62,7 +62,7 @@
                         CategoryName: item.ProductCategory.Name,
                         Price: tn.formatNumber(item.Price, 0),
                         CreatedDate: tn.dateTimeFormatJson(item.DateCreated),
-                        Status: tn.geStatus(item.Status)
+                        Status: tn.getStatus(item.Status)
                     });
                     $('#lblTotalRecords').text(response.RowCount);
                     if (render != '') {

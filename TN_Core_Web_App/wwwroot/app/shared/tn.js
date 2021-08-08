@@ -131,9 +131,9 @@
         for (var i = 0; i < arr.length; i += 1) {
             var node = arr[i];
             node.children = [];
-            map[node.Id] = i; // use map to look-up the parents
-            if (node.ParentId !== null) {
-                arr[map[node.ParentId]].children.push(node);
+            map[node.id] = i; // use map to look-up the parents
+            if (node.parentId !== null) {
+                arr[map[node.parentId]].children.push(node);
             } else {
                 roots.push(node);
             }
@@ -141,7 +141,6 @@
         return roots;
     }
 }
-
 
         $(document).ajaxSend(function (e, xhr, options) {
         if (options.type.toUpperCase() == "POST" || options.type.toUpperCase() == "PUT") {

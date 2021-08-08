@@ -16,6 +16,7 @@ namespace TN_Core_Web_App.Services.AutoMapper
         {
             CreateMap<ProductCategory, ProductCategoryViewModel>();
             CreateMap<Function, FunctionViewModel>();
+            CreateMap<Product, ProductViewModel>();
 
         }
     }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +21,10 @@ using TN_Core_Web_App.Data.EF.Responsitories;
 using TN_Core_Web_App.Data.Entities;
 using TN_Core_Web_App.Data.IRepositories;
 using TN_Core_Web_App.Helpers;
+using TN_Core_Web_App.Services;
 using TN_Core_Web_App.Services.Implementation;
 using TN_Core_Web_App.Services.Interfaces;
+using IEmailSender = TN_Core_Web_App.Services.IEmailSender;
 
 namespace TN_Core_Web_App
 {
@@ -69,6 +72,7 @@ namespace TN_Core_Web_App
 
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
             services.AddTransient<DbInitializer>();
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
             services.AddControllersWithViews();
 
@@ -78,9 +82,11 @@ namespace TN_Core_Web_App
             //Responsitories
             services.AddTransient<IProductCategoryResponsitory, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
+            services.AddTransient<IProductService, ProductService>();
 
 
 

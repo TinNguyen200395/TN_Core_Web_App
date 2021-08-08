@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {

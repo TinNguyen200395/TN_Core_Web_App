@@ -44,7 +44,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
                     _logger.LogInformation("User logged in.");
                     return new OkObjectResult(new GenericResult(true));
                 }
-              
+
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");

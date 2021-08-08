@@ -8,8 +8,7 @@ using TN_Core_Web_App.Data.Entities;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly SignInManager<AppUser> _signInManager;
 

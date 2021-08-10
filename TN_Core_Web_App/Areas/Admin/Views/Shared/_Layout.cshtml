@@ -19,11 +19,12 @@
     <link href="~/lib/nprogress/nprogress.css" rel="stylesheet" />
     <!-- bootstrap-daterangepicker -->
     <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
-
+    <!-- ckeditor-->
+    <link href="~/lib/ckeditor/skins/moono/editor.css" rel="stylesheet" />
     <link href="~/lib/notifyjs/dist/styles/metro/notify-metro.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="~/admin-side/css/custom.css" rel="stylesheet" />
-    @RenderSection("Styles",required:false)
+    @RenderSection("Styles", required: false)
 </head>
 
 <body class="nav-md">
@@ -32,7 +33,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>TN Watch Shop !</span></a>
+                        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="site_title"><i class="fa fa-paw"></i> <span>TN Watch Shop !</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -65,9 +66,10 @@
                         <a data-toggle="tooltip" data-placement="top" title="Lock">
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" asp-area="" asp-controller="admin" asp-action="Index">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
+
                     </div>
                     <!-- /menu footer buttons -->
                 </div>
@@ -189,6 +191,8 @@
     <script src="~/lib/jquery-sparkline/dist/jquery.sparkline.js"></script>
     <!-- twbs-pagination -->
     <script src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
+    <!-- ckeditor -->
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
 
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>

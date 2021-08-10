@@ -12,6 +12,12 @@ namespace TN_Core_Web_App.Services.Interfaces
     {
         List<ProductViewModel> GetAll();
         PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
+        ProductViewModel Add(ProductViewModel productvn);
+
+        void Update(ProductViewModel productvm);
+        void Delete(int id);
+        ProductViewModel GetbyId(int id);
+        void Save();
 
     }
 }

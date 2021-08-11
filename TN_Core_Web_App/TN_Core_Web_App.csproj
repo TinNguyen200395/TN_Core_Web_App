@@ -208,4 +208,8 @@
     <ProjectReference Include="..\TN_Core_Web_App.Utilities\TN_Core_Web_App.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\client-side\images\slider\" />
+  </ItemGroup>
+
 </Project>

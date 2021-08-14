@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TN_Core_Web_App.Authorization;
 using TN_Core_Web_App.Data;
 using TN_Core_Web_App.Data.EF;
 using TN_Core_Web_App.Data.EF.Responsitories;
@@ -95,7 +97,7 @@ namespace TN_Core_Web_App
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
-
+            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
 
         }

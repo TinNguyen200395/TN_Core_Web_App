@@ -90,6 +90,11 @@ namespace TN_Core_Web_App
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IPermissionRepository, PermissionRepository>();
+            services.AddTransient<IBillRepository, BillRepository>();
+            services.AddTransient<IBillDetailRepository, BillDetailRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<ISizeRepository, SizeRepository>();
+
 
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
@@ -97,6 +102,8 @@ namespace TN_Core_Web_App
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IBillService, BillService>();
+
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
 

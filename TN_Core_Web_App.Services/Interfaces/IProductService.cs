@@ -16,6 +16,7 @@ namespace TN_Core_Web_App.Services.Interfaces
 
         void Update(ProductViewModel productvm);
         void Delete(int id);
+        void ImportExcel(string filePath, int categoryId);
         ProductViewModel GetbyId(int id);
         void Save();
 

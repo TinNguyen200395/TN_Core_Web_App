@@ -242,6 +242,23 @@
             });
             return false;
         });
+        $('#btn-export').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Product/ExportExcel",
+                beforeSend: function () {
+                    tn.startLoading();
+                },
+                success: function (response) {
+                    window.location.href = response;
+                    tn.stopLoading();
+                },
+                error: function () {
+                    tn.notify('Has an error in progress', 'error');
+                    tn.stopLoading();
+                }
+            });
+        });
     }
 
     function registerControls() {

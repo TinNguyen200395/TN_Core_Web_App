@@ -124,10 +124,10 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
             }
             using (FileStream templateDocumentStream = System.IO.File.OpenRead(templateDocument))
             {
-                 using (ExcelPackage package = new ExcelPackage(templateDocumentStream))
+                using (ExcelPackage package = new ExcelPackage(templateDocumentStream))
                 {
                     // add a new worksheet to the empty workbook
-                    ExcelWorksheet worksheet = package.Workbook.Worksheets["TEDUOrder"];
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets["Sheet1"];
                     // Data Acces, load order header data.
                     var billDetail = _billService.GetDetail(billId);
 
@@ -167,12 +167,8 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
 
                     package.SaveAs(file); //Save the workbook.
                 }
-                                
-
             }
-
             return new OkObjectResult(url);
-
         }
     }
 }

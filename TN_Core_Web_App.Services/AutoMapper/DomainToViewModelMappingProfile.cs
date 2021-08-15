@@ -15,8 +15,9 @@ namespace TN_Core_Web_App.Services.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<ProductCategory, ProductCategoryViewModel>();
-            CreateMap<Function, FunctionViewModel>();
             CreateMap<Product, ProductViewModel>();
+
+            CreateMap<Function, FunctionViewModel>();
             CreateMap<AppUser, AppUserViewModel>();
             CreateMap<AppRole, AppRoleViewModel>();
             CreateMap<Bill, BillViewModel>();

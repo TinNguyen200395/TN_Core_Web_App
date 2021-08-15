@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,7 @@ using TN_Core_Web_App.Utilities.Helpers;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {
-    public class BillController : Controller
+    public class BillController : BaseController
     {
         private readonly IBillService _billService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -123,8 +124,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
             }
             using (FileStream templateDocumentStream = System.IO.File.OpenRead(templateDocument))
             {
-                /* FIX EXCELLL-----------------------------------------------------------
-                 * using (ExcelPackage package = new ExcelPackage(templateDocumentStream))
+                 using (ExcelPackage package = new ExcelPackage(templateDocumentStream))
                 {
                     // add a new worksheet to the empty workbook
                     ExcelWorksheet worksheet = package.Workbook.Worksheets["TEDUOrder"];
@@ -167,7 +167,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
 
                     package.SaveAs(file); //Save the workbook.
                 }
-                                */
+                                
 
             }
 

@@ -57,6 +57,7 @@
             loadData(true);
         });
 
+      
         $('body').on('click', '.btn-view', function (e) {
             e.preventDefault();
             var that = $(this).data('id');

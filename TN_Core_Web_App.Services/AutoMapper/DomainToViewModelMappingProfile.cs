@@ -24,6 +24,7 @@ namespace TN_Core_Web_App.Services.AutoMapper
             CreateMap<BillDetail, BillDetailViewModel>();
             CreateMap<Color, ColorViewModel>();
             CreateMap<Size, SizeViewModel>();
+            CreateMap<ProductQuantity, ProductQuantityViewModel>().MaxDepth(2);
 
 
 

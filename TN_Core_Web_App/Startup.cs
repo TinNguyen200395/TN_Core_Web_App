@@ -94,6 +94,7 @@ namespace TN_Core_Web_App
             services.AddTransient<IBillDetailRepository, BillDetailRepository>();
             services.AddTransient<IColorRepository, ColorRepository>();
             services.AddTransient<ISizeRepository, SizeRepository>();
+            services.AddTransient<IProductQuantityRepository, ProductQuantityRepository>();
 
 
             //Services

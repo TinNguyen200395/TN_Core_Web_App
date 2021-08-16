@@ -25,13 +25,15 @@ namespace TN_Core_Web_App.Services.Implementation
         IProductTagRepository _ptoductTagRepository;
         ITagRepository _tagRepository;
         IUnitOfWork _unitOfWork;
+        IProductQuantityRepository _productQuantityRepository;
         public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository, ITagRepository tagRepository
-            , IUnitOfWork unitOfWork)
+            , IUnitOfWork unitOfWork, IProductQuantityRepository productQuantityRepository)
         {
             _productRepository = productRepository;
             _ptoductTagRepository = productTagRepository;
             _tagRepository = tagRepository;
             _unitOfWork = unitOfWork;
+            _productQuantityRepository = productQuantityRepository;
         }
 
         public ProductViewModel Add(ProductViewModel productvm)
@@ -69,6 +71,21 @@ namespace TN_Core_Web_App.Services.Implementation
 
             }
             return productvm;
+        }
+
+        public void AddQuantity(int productId, List<ProductQuantityViewModel> quantities)
+        {
+            _productQuantityRepository.RemoveMultiple(_productQuantityRepository.FindAll(x => x.ProductId == productId).ToList());
+            foreach (var quantity in quantities)
+            {
+                _productQuantityRepository.Add(new ProductQuantity()
+                {
+                    ProductId = productId,
+                    ColorId = quantity.ColorId,
+                    SizeId = quantity.SizeId,
+                    Quantity = quantity.Quantity
+                });
+            }
         }
 
         public void Delete(int id)
@@ -113,6 +130,11 @@ namespace TN_Core_Web_App.Services.Implementation
         public ProductViewModel GetbyId(int id)
         {
             return Mapper.Map<Product, ProductViewModel>(_productRepository.FindById(id));
+        }
+
+        public List<ProductQuantityViewModel> GetQuantities(int productId)
+        {
+            return _productQuantityRepository.FindAll(x => x.ProductId == productId).ProjectTo<ProductQuantityViewModel>().ToList();
         }
 
         public void ImportExcel(string filePath, int categoryId)

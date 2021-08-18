@@ -75,7 +75,7 @@ namespace TN_Core_Web_App.Data.EF
         public void Remove(K id)
         {
             var entity = FindById(id);
-            Remove(FindById(id));
+            Remove(entity);
         }
 
         public void RemoveMultiple(List<T> entities)

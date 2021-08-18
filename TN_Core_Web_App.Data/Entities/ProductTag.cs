@@ -9,20 +9,18 @@ using TN_Core_Web_App.Infrastructure.SharedKernel;
 
 namespace TN_Core_Web_App.Data.Entities
 {
-    [Table("ProductTags")]
+        public class ProductTag : DomainEntity<int>
+    {
+        public int ProductId { get; set; }
 
-    public class ProductTag : DomainEntity<int>
-        {
-            public int ProductId { get; set; }
+        [StringLength(50)]
+        [Column(TypeName = "varchar")]
+        public string TagId { set; get; }
 
-            [StringLength(50)]
-            [Column(TypeName = "varchar")]
-            public string TagId { set; get; }
+        [ForeignKey("ProductId")]
+        public virtual Product Product { set; get; }
 
-            [ForeignKey("ProductId")]
-            public virtual Product Product { set; get; }
-
-            [ForeignKey("TagId")]
-            public virtual Tag Tag { set; get; }
-        }
+        [ForeignKey("TagId")]
+        public virtual Tag Tag { set; get; }
     }
+}

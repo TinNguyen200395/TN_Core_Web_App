@@ -17,7 +17,7 @@ namespace TN_Core_Web_App.Data.Entities
     {
         public Product()
         {
-          //  ProductTags = new List<ProductTag>();
+            ProductTags = new List<ProductTag>();
         }
 
         public Product(string name, int categoryId, string thumbnailImage,
@@ -73,7 +73,7 @@ namespace TN_Core_Web_App.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
-           ProductTags = new List<ProductTag>();
+            ProductTags = new List<ProductTag>();
 
         }
         [StringLength(255)]

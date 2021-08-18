@@ -19,28 +19,33 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
 
     public class ProductController : BaseController
     {
-        IProductCategoryService _productCategoryService;
-        IWebHostEnvironment  _hostingEnvironment;
-        IProductService _productService;
-        public ProductController(IProductService productService , IProductCategoryService productCategoryService , IWebHostEnvironment hostEnvironment)
-        {
+        private readonly IProductService _productService;
+        private readonly IProductCategoryService _productCategoryService;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
+        public ProductController(IProductService productService,
+            IProductCategoryService productCategoryService,
+            IWebHostEnvironment hostingEnvironment)
+        {
             _productService = productService;
             _productCategoryService = productCategoryService;
-            _hostingEnvironment = hostEnvironment;
+            _hostingEnvironment = hostingEnvironment;
         }
+
         public IActionResult Index()
         {
             return View();
         }
 
         #region AJAX API
+
         [HttpGet]
         public IActionResult GetAll()
         {
             var model = _productService.GetAll();
             return new OkObjectResult(model);
         }
+
         [HttpGet]
         public IActionResult GetAllCategories()
         {
@@ -54,12 +59,15 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
             var model = _productService.GetAllPaging(categoryId, keyword, page, pageSize);
             return new OkObjectResult(model);
         }
+
         [HttpGet]
-        public IActionResult GetbyId(int id)
+        public IActionResult GetById(int id)
         {
-            var model = _productService.GetbyId(id);
+            var model = _productService.GetById(id);
+
             return new OkObjectResult(model);
         }
+
         [HttpPost]
         public IActionResult SaveEntity(ProductViewModel productVm)
         {
@@ -114,6 +122,20 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
             return new OkObjectResult(quantities);
         }
         [HttpPost]
+        public IActionResult SaveImages(int productId, string[] images)
+        {
+            _productService.AddImages(productId, images);
+            _productService.Save();
+            return new OkObjectResult(images);
+        }
+
+        [HttpGet]
+        public IActionResult GetImages(int productId)
+        {
+            var images = _productService.GetImages(productId);
+            return new OkObjectResult(images);
+        }
+        [HttpPost]
         public IActionResult ImportExcel(IList<IFormFile> files, int categoryId)
         {
             if (files != null && files.Count > 0)
@@ -125,7 +147,6 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
                                    .Trim('"');
 
                 string folder = _hostingEnvironment.WebRootPath + $@"\uploaded\excels";
-                // nêu chưa tồn tại sẽ tạo thư mục 
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
@@ -171,6 +192,6 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
             }
             return new OkObjectResult(fileUrl);
         }
-        #endregion
+        #endregion AJAX API
     }
 }

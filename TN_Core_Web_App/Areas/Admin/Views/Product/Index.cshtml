@@ -8,12 +8,15 @@
 @section Scripts{
     <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
     <script src="~/app/controllers/product/product-quatity.js"></script>
+    <script src="~/app/controllers/product/image-management.js"></script>
     <script src="~/app/controllers/product/index.js"></script>
     <script>
         var product = new productController();
         product.initialize();
         var qutityProduct = new QuantityManagement();
         qutityProduct.initialize();
+        var imageProduct = new ImageManagement();
+        imageProduct.initialize();
     </script>
 }
 <div class="page-title">
@@ -110,6 +113,6 @@
 @await Html.PartialAsync("_AddEditModal")
 @await Html.PartialAsync("_ImportExcelModal")
 @await Html.PartialAsync("_QuantityManagement")
-
+@await Html.PartialAsync("_ImageManagement")
 
 @* text thì hai dấu {{}}*@

@@ -8,20 +8,31 @@ using TN_Core_Web_App.Utilities.DTO;
 
 namespace TN_Core_Web_App.Services.Interfaces
 {
-    public interface IProductService:IDisposable
+    public interface IProductService : IDisposable
     {
         List<ProductViewModel> GetAll();
-        PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
-        ProductViewModel Add(ProductViewModel productvn);
 
-        void Update(ProductViewModel productvm);
+        PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
+
+        ProductViewModel Add(ProductViewModel product);
+
+        void Update(ProductViewModel product);
+
         void Delete(int id);
+
+        ProductViewModel GetById(int id);
+
         void ImportExcel(string filePath, int categoryId);
-        ProductViewModel GetbyId(int id);
+
+
         void Save();
 
         void AddQuantity(int productId, List<ProductQuantityViewModel> quantities);
 
         List<ProductQuantityViewModel> GetQuantities(int productId);
+
+        void AddImages(int productId, string[] images);
+
+        List<ProductImageViewModel> GetImages(int productId);
     }
 }

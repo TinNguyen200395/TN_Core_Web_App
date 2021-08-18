@@ -21,27 +21,34 @@ namespace TN_Core_Web_App.Services.Implementation
 {
     public class ProductService : IProductService
     {
-        IProductRepository _productRepository;
-        IProductTagRepository _ptoductTagRepository;
-        ITagRepository _tagRepository;
+        readonly IProductRepository _productRepository;
+        readonly ITagRepository _tagRepository;
+        readonly IProductTagRepository _productTagRepository;
+        readonly IProductQuantityRepository _productQuantityRepository;
+        readonly IProductImageRepository _productImageRepository;
+
         IUnitOfWork _unitOfWork;
-        IProductQuantityRepository _productQuantityRepository;
-        public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository, ITagRepository tagRepository
-            , IUnitOfWork unitOfWork, IProductQuantityRepository productQuantityRepository)
+        public ProductService(IProductRepository productRepository,
+            ITagRepository tagRepository,
+            IProductQuantityRepository productQuantityRepository,
+            IProductImageRepository productImageRepository,
+            IUnitOfWork unitOfWork,
+        IProductTagRepository productTagRepository)
         {
             _productRepository = productRepository;
-            _ptoductTagRepository = productTagRepository;
             _tagRepository = tagRepository;
-            _unitOfWork = unitOfWork;
             _productQuantityRepository = productQuantityRepository;
+            _productTagRepository = productTagRepository;
+            _productImageRepository = productImageRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public ProductViewModel Add(ProductViewModel productvm)
+        public ProductViewModel Add(ProductViewModel productVm)
         {
             List<ProductTag> productTags = new List<ProductTag>();
-            if (!string.IsNullOrEmpty(productvm.Tags))
+            if (!string.IsNullOrEmpty(productVm.Tags))
             {
-                string[] tags = productvm.Tags.Split(',');
+                string[] tags = productVm.Tags.Split(',');
                 foreach (string t in tags)
                 {
                     var tagId = TextHelper.ToUnsignString(t);
@@ -62,7 +69,7 @@ namespace TN_Core_Web_App.Services.Implementation
                     };
                     productTags.Add(productTag);
                 }
-                var product = Mapper.Map<ProductViewModel, Product>(productvm);
+                var product = Mapper.Map<ProductViewModel, Product>(productVm);
                 foreach (var productTag in productTags)
                 {
                     product.ProductTags.Add(productTag);
@@ -70,7 +77,7 @@ namespace TN_Core_Web_App.Services.Implementation
                 _productRepository.Add(product);
 
             }
-            return productvm;
+            return productVm;
         }
 
         public void AddQuantity(int productId, List<ProductQuantityViewModel> quantities)
@@ -102,6 +109,7 @@ namespace TN_Core_Web_App.Services.Implementation
         {
             return _productRepository.FindAll(x => x.ProductCategory).ProjectTo<ProductViewModel>().ToList();
         }
+
         public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
         {
             var query = _productRepository.FindAll(x => x.Status == Status.Active);
@@ -127,7 +135,7 @@ namespace TN_Core_Web_App.Services.Implementation
             return paginationSet;
         }
 
-        public ProductViewModel GetbyId(int id)
+        public ProductViewModel GetById(int id)
         {
             return Mapper.Map<Product, ProductViewModel>(_productRepository.FindById(id));
         }
@@ -141,10 +149,8 @@ namespace TN_Core_Web_App.Services.Implementation
         {
             using (var package = new ExcelPackage(new FileInfo(filePath)))
             {
-                // lấy worksheet đầu tiên của file excel 
                 ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
                 Product product;
-                // xây dựng điều kiện vong lập để lọc ra từng dòng 1
                 for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
                 {
                     product = new Product();
@@ -202,7 +208,7 @@ namespace TN_Core_Web_App.Services.Implementation
                         tag.Type = CommonConstants.ProductTag;
                         _tagRepository.Add(tag);
                     }
-                    _ptoductTagRepository.RemoveMultiple(_ptoductTagRepository.FindAll(x => x.Id == productVm.Id).ToList());
+                    _productTagRepository.RemoveMultiple(_productTagRepository.FindAll(x => x.Id == productVm.Id).ToList());
                     ProductTag productTag = new ProductTag
                     {
                         TagId = tagId
@@ -210,6 +216,7 @@ namespace TN_Core_Web_App.Services.Implementation
                     productTags.Add(productTag);
                 }
             }
+
             var product = Mapper.Map<ProductViewModel, Product>(productVm);
             foreach (var productTag in productTags)
             {
@@ -218,5 +225,25 @@ namespace TN_Core_Web_App.Services.Implementation
             _productRepository.Update(product);
         }
 
+        public List<ProductImageViewModel> GetImages(int productId)
+        {
+            return _productImageRepository.FindAll(x => x.ProductId == productId)
+                .ProjectTo<ProductImageViewModel>().ToList();
+        }
+
+        public void AddImages(int productId, string[] images)
+        {
+            _productImageRepository.RemoveMultiple(_productImageRepository.FindAll(x => x.ProductId == productId).ToList());
+            foreach (var image in images)
+            {
+                _productImageRepository.Add(new ProductImage()
+                {
+                    Path = image,
+                    ProductId = productId,
+                    Caption = string.Empty
+                });
+            }
+
+        }
     }
 }

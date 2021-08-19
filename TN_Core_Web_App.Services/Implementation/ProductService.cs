@@ -26,6 +26,7 @@ namespace TN_Core_Web_App.Services.Implementation
         readonly IProductTagRepository _productTagRepository;
         readonly IProductQuantityRepository _productQuantityRepository;
         readonly IProductImageRepository _productImageRepository;
+        readonly IWholePriceRepository _wholePriceRepository;
 
         IUnitOfWork _unitOfWork;
         public ProductService(IProductRepository productRepository,
@@ -33,12 +34,14 @@ namespace TN_Core_Web_App.Services.Implementation
             IProductQuantityRepository productQuantityRepository,
             IProductImageRepository productImageRepository,
             IUnitOfWork unitOfWork,
-        IProductTagRepository productTagRepository)
+        IProductTagRepository productTagRepository,
+            IWholePriceRepository wholePriceRepository)
         {
             _productRepository = productRepository;
             _tagRepository = tagRepository;
             _productQuantityRepository = productQuantityRepository;
             _productTagRepository = productTagRepository;
+            _wholePriceRepository = wholePriceRepository;
             _productImageRepository = productImageRepository;
             _unitOfWork = unitOfWork;
         }
@@ -244,6 +247,25 @@ namespace TN_Core_Web_App.Services.Implementation
                 });
             }
 
+        }
+        public void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices)
+        {
+            _wholePriceRepository.RemoveMultiple(_wholePriceRepository.FindAll(x => x.ProductId == productId).ToList());
+            foreach (var wholePrice in wholePrices)
+            {
+                _wholePriceRepository.Add(new WholePrice()
+                {
+                    ProductId = productId,
+                    FromQuantity = wholePrice.FromQuantity,
+                    ToQuantity = wholePrice.ToQuantity,
+                    Price = wholePrice.Price
+                });
+            }
+        }
+
+        public List<WholePriceViewModel> GetWholePrices(int productId)
+        {
+            return _wholePriceRepository.FindAll(x => x.ProductId == productId).ProjectTo<WholePriceViewModel>().ToList();
         }
     }
 }

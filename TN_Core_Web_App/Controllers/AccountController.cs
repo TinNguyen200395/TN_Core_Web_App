@@ -18,7 +18,6 @@ using TN_Core_Web_App.Data.Entities;
 namespace TN_Core_Web_App.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -43,6 +42,7 @@ namespace TN_Core_Web_App.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("Dang-nhap.html",Name ="Login")]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
@@ -55,6 +55,8 @@ namespace TN_Core_Web_App.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("Dang-nhap.html", Name = "Login")]
+
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -207,6 +209,8 @@ namespace TN_Core_Web_App.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("Register.html")]
+
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -216,6 +220,8 @@ namespace TN_Core_Web_App.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("Register.html")]
+
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;

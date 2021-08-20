@@ -12,6 +12,7 @@ using TN_Core_Web_App.Data.Enums;
 using TN_Core_Web_App.Data.IRepositories;
 using TN_Core_Web_App.Infrastructure.Interfaces;
 using TN_Core_Web_App.Services.Interfaces;
+using TN_Core_Web_App.Services.ViewModels.Common;
 using TN_Core_Web_App.Services.ViewModels.Product;
 using TN_Core_Web_App.Utilities.Constants;
 using TN_Core_Web_App.Utilities.DTO;
@@ -21,21 +22,21 @@ namespace TN_Core_Web_App.Services.Implementation
 {
     public class ProductService : IProductService
     {
-        readonly IProductRepository _productRepository;
-        readonly ITagRepository _tagRepository;
-        readonly IProductTagRepository _productTagRepository;
-        readonly IProductQuantityRepository _productQuantityRepository;
-        readonly IProductImageRepository _productImageRepository;
-        readonly IWholePriceRepository _wholePriceRepository;
+        IProductRepository _productRepository;
+        ITagRepository _tagRepository;
+        IProductTagRepository _productTagRepository;
+        IProductQuantityRepository _productQuantityRepository;
+        IProductImageRepository _productImageRepository;
+        IWholePriceRepository _wholePriceRepository;
 
         IUnitOfWork _unitOfWork;
         public ProductService(IProductRepository productRepository,
             ITagRepository tagRepository,
             IProductQuantityRepository productQuantityRepository,
             IProductImageRepository productImageRepository,
-            IUnitOfWork unitOfWork,
-        IProductTagRepository productTagRepository,
-            IWholePriceRepository wholePriceRepository)
+            IWholePriceRepository wholePriceRepository,
+        IUnitOfWork unitOfWork,
+        IProductTagRepository productTagRepository)
         {
             _productRepository = productRepository;
             _tagRepository = tagRepository;
@@ -283,6 +284,41 @@ namespace TN_Core_Web_App.Services.Implementation
                 .ToList();
         }
 
-       
+        public List<ProductViewModel> GetRelatedProducts(int id, int top)
+        {
+            var product = _productRepository.FindById(id);
+            return _productRepository.FindAll(x => x.Status == Status.Active
+                && x.Id != id && x.CategoryId == product.CategoryId)
+            .OrderByDescending(x => x.DateCreated)
+            .Take(top)
+            .ProjectTo<ProductViewModel>()
+            .ToList();
+        }
+
+        public List<ProductViewModel> GetUpsellProducts(int top)
+        {
+            return _productRepository.FindAll(x => x.PromotionPrice != null)
+               .OrderByDescending(x => x.DateModified)
+               .Take(top)
+               .ProjectTo<ProductViewModel>().ToList();
+        }
+
+        public List<TagViewModel> GetProductTags(int productId)
+        {
+            var tags = _tagRepository.FindAll();
+            var productTags = _productTagRepository.FindAll();
+
+            var query = from t in tags
+                        join pt in productTags
+                        on t.Id equals pt.TagId
+                        where pt.ProductId == productId
+                        select new TagViewModel()
+                        {
+                            Id = t.Id,
+                            Name = t.Name
+                        };
+            return query.ToList();
+
+        }
     }
 }

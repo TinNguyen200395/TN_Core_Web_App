@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TN_Core_Web_App.Services.ViewModels.Common;
 using TN_Core_Web_App.Services.ViewModels.Product;
 using TN_Core_Web_App.Utilities.DTO;
 
@@ -34,10 +35,19 @@ namespace TN_Core_Web_App.Services.Interfaces
         void AddImages(int productId, string[] images);
 
         List<ProductImageViewModel> GetImages(int productId);
+
         void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices);
 
         List<WholePriceViewModel> GetWholePrices(int productId);
+
         List<ProductViewModel> GetLastest(int top);
+
         List<ProductViewModel> GetHotProduct(int top);
+        List<ProductViewModel> GetRelatedProducts(int id, int top);
+
+        List<ProductViewModel> GetUpsellProducts(int top);
+
+        List<TagViewModel> GetProductTags(int productId);
+
     }
 }

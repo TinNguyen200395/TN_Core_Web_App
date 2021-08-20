@@ -9,7 +9,6 @@ namespace TN_Core_Web_App.Services.Interfaces
 {
     public interface IProductCategoryService
     {
-
         ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm);
 
         void Update(ProductCategoryViewModel productCategoryVm);
@@ -30,6 +29,5 @@ namespace TN_Core_Web_App.Services.Interfaces
         List<ProductCategoryViewModel> GetHomeCategories(int top);
 
         void Save();
-
     }
 }

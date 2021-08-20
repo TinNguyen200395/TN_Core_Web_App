@@ -16,10 +16,10 @@ namespace TN_Core_Web_App.Services.Implementation
 {
     public class CommonService : ICommonService
     {
-        IFooterRepository _footerRepository;
-        ISystemConfigRepository _systemConfigRepository;
-        IUnitOfWork _unitOfWork;
-        ISlideRepository _slideRepository;
+        private readonly IFooterRepository _footerRepository;
+        private readonly ISystemConfigRepository _systemConfigRepository;
+         IUnitOfWork _unitOfWork;
+        private readonly ISlideRepository _slideRepository;
         public CommonService(IFooterRepository footerRepository,
             ISystemConfigRepository systemConfigRepository,
             IUnitOfWork unitOfWork,

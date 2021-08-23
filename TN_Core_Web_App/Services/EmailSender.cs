@@ -19,6 +19,7 @@ namespace TN_Core_Web_App.Services
         }
         public Task SendEmailAsync(string email, string subject, string message)
         {
+            // khởi tạo SmtpClinet nó lấy tất cả các thông tin của port 
             SmtpClient client = new SmtpClient(_configuration["MailSettings:Server"])
             {
                 UseDefaultCredentials = false,

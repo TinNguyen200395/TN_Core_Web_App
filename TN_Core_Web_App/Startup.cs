@@ -19,7 +19,6 @@ using TN_Core_Web_App.Infrastructure.Interfaces;
 using TN_Core_Web_App.Services;
 using TN_Core_Web_App.Services.Implementation;
 using TN_Core_Web_App.Services.Interfaces;
-using IEmailSender = TN_Core_Web_App.Services.IEmailSender;
 
 namespace TN_Core_Web_App
 {
@@ -42,9 +41,9 @@ namespace TN_Core_Web_App
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-
             services.AddIdentity<AppUser, AppRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+               .AddEntityFrameworkStores<AppDbContext>()
+               .AddDefaultTokenProviders();
             //configue Identity
             services.Configure<IdentityOptions>(options =>
             {
@@ -67,7 +66,9 @@ namespace TN_Core_Web_App
 
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
             services.AddTransient<DbInitializer>();
+
             services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
             services.AddControllersWithViews();
 

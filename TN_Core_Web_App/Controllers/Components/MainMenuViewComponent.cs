@@ -10,7 +10,7 @@ namespace TN_Core_Web_App.Controllers.Components
     public class MainMenuViewComponent: ViewComponent
 
     {
-        private IProductCategoryService _productcategoryservice;
+        private readonly IProductCategoryService _productcategoryservice;
         public MainMenuViewComponent(IProductCategoryService productCategoryService)
         {
             _productcategoryservice = productCategoryService;

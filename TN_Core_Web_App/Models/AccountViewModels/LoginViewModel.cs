@@ -9,7 +9,7 @@ namespace TN_Core_Web_App.Models.AccountViewModels
     public class LoginViewModel
     {
         [Required]
-        public string UserName { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

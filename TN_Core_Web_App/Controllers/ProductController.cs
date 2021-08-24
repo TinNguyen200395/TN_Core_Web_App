@@ -22,13 +22,7 @@ namespace TN_Core_Web_App.Controllers
             _configuration = configuration;
         }
         [Route("products.html")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [Route("{alias}-c.{id}.html")]
-        public IActionResult Catalog(int id, int? pageSize, string sortBy, int page = 1)
+        public IActionResult Index(int id, int? pageSize, string sortBy, int page = 1)
         {
             var catalog = new CatalogViewModel();
             ViewData["BodyClass"] = "shop_grid_full_width_page";
@@ -39,6 +33,22 @@ namespace TN_Core_Web_App.Controllers
             catalog.SortType = sortBy;
             catalog.Data = _productService.GetAllPaging(id, string.Empty, page, pageSize.Value);
             catalog.Category = _productCategoryService.GetById(id);
+
+            return View();
+        }
+
+        [Route("search.html")]
+        public IActionResult Search(string keyword, int? pageSize, string sortBy, int page = 1)
+        {
+            var catalog = new SearchResultViewModel();
+            ViewData["BodyClass"] = "shop_grid_full_width_page";
+            if (pageSize == null)
+                pageSize = _configuration.GetValue<int>("PageSize");
+
+            catalog.PageSize = pageSize;
+            catalog.SortType = sortBy;
+            catalog.Data = _productService.GetAllPaging(null, keyword, page, pageSize.Value);
+            catalog.Keyword = keyword;
 
             return View(catalog);
         }

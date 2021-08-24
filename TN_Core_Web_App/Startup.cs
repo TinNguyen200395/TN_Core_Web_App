@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using System;
 using TN_Core_Web_App.Authorization;
 using TN_Core_Web_App.Data.EF;
@@ -58,6 +59,11 @@ namespace TN_Core_Web_App
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 //User settings
                 options.User.RequireUniqueEmail = true;
+            });
+            services.AddRecaptcha(new RecaptchaOptions()
+            {
+                SiteKey= Configuration["Recaptcha:SiteKey"],
+                SecretKey = Configuration["Recaptcha:SecretKey"]
             });
             services.AddAutoMapper();
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();

@@ -15,6 +15,7 @@ using TN_Core_Web_App.Models.AccountViewModels;
 using TN_Core_Web_App.Services;
 using TN_Core_Web_App.Data.Entities;
 using TN_Core_Web_App.Data.Enums;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace TN_Core_Web_App.Controllers
 {
@@ -219,7 +220,9 @@ namespace TN_Core_Web_App.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [ValidateRecaptcha]
         [Route("register.html")]
+
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;

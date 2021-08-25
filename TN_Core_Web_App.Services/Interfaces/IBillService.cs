@@ -32,5 +32,9 @@ namespace TN_Core_Web_App.Services.Interfaces
         List<SizeViewModel> GetSizes();
 
         void Save();
+
+        ColorViewModel GetColor(int id);
+
+        SizeViewModel GetSize(int id);
     }
 }

@@ -14,9 +14,11 @@ namespace TN_Core_Web_App.Controllers
     public class CartController : Controller
     {
         private readonly IProductService _productService;
-        public CartController(IProductService productService)
+        private readonly IBillService _billService;
+        public CartController(IProductService productService, IBillService billService)
         {
             _productService = productService;
+            _billService = billService;
         }
         [Route("cart.html", Name = "Cart")]
         public IActionResult Index()
@@ -89,8 +91,8 @@ namespace TN_Core_Web_App.Controllers
                     {
                         Product = product,
                         Quantity = quantity,
-                        ColorId = color,
-                        SizeId = size,
+                        Color = _billService.GetColor(color),
+                        Size = _billService.GetSize(size),
                         Price = product.PromotionPrice ?? product.Price
                     });
                     hasChanged = true;
@@ -110,8 +112,8 @@ namespace TN_Core_Web_App.Controllers
                 {
                     Product = product,
                     Quantity = quantity,
-                    ColorId = color,
-                    SizeId = size,
+                    Color = _billService.GetColor(color),
+                    Size = _billService.GetSize(size),
                     Price = product.PromotionPrice ?? product.Price
                 });
                 HttpContext.Session.Set(CommonConstants.CartSession, cart);
@@ -153,7 +155,7 @@ namespace TN_Core_Web_App.Controllers
         /// <param name="productId"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        public IActionResult UpdateCart(int productId, int quantity)
+        public IActionResult UpdateCart(int productId, int quantity, int color, int size)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
             if (session != null)
@@ -165,6 +167,8 @@ namespace TN_Core_Web_App.Controllers
                     {
                         var product = _productService.GetById(productId);
                         item.Product = product;
+                        item.Size = _billService.GetSize(size);
+                        item.Color = _billService.GetColor(color);
                         item.Quantity = quantity;
                         item.Price = product.PromotionPrice ?? product.Price;
                         hasChanged = true;
@@ -177,6 +181,19 @@ namespace TN_Core_Web_App.Controllers
                 return new OkObjectResult(productId);
             }
             return new EmptyResult();
+        }
+        [HttpGet]
+        public IActionResult GetColors()
+        {
+            var colors = _billService.GetColors();
+            return new OkObjectResult(colors);
+        }
+
+        [HttpGet]
+        public IActionResult GetSizes()
+        {
+            var sizes = _billService.GetSizes();
+            return new OkObjectResult(sizes);
         }
         #endregion
     }

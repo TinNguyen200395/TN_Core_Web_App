@@ -25,19 +25,10 @@ namespace TN_Core_Web_App.Controllers
             _billService = billService;
         }
         [Route("products.html")]
-        public IActionResult Index(int id, int? pageSize, string sortBy, int page = 1)
+        public IActionResult Index()
         {
-            var catalog = new CatalogViewModel();
-            ViewData["BodyClass"] = "shop_grid_full_width_page";
-            if (pageSize == null)
-                pageSize = _configuration.GetValue<int>("PageSize");
-
-            catalog.PageSize = pageSize;
-            catalog.SortType = sortBy;
-            catalog.Data = _productService.GetAllPaging(id, string.Empty, page, pageSize.Value);
-            catalog.Category = _productCategoryService.GetById(id);
-
-            return View();
+            var categories = _productCategoryService.GetAll();
+            return View(categories);
         }
 
         [Route("search.html")]

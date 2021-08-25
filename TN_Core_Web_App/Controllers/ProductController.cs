@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Models.ProductViewModels;
 using TN_Core_Web_App.Services.Interfaces;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace TN_Core_Web_App.Controllers
 {
     public class ProductController : Controller
@@ -14,12 +14,15 @@ namespace TN_Core_Web_App.Controllers
        private readonly IProductService _productService;
         private readonly IProductCategoryService _productCategoryService;
         private readonly IConfiguration _configuration;
+        private readonly IBillService _billService;
         public ProductController(IProductService productService, IConfiguration configuration,
-            IProductCategoryService productCategoryService)
+             IBillService billService,
+             IProductCategoryService productCategoryService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
             _configuration = configuration;
+            _billService = billService;
         }
         [Route("products.html")]
         public IActionResult Index(int id, int? pageSize, string sortBy, int page = 1)
@@ -64,6 +67,16 @@ namespace TN_Core_Web_App.Controllers
             model.UpsellProducts = _productService.GetUpsellProducts(6);
             model.ProductImages = _productService.GetImages(id);
             model.Tags = _productService.GetProductTags(id);
+            model.Colors = _billService.GetColors().Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+            model.Sizes = _billService.GetSizes().Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
             return View(model);
         }
 

@@ -66,6 +66,11 @@ namespace TN_Core_Web_App
                 SecretKey = Configuration["Recaptcha:SecretKey"]
             });
             services.AddAutoMapper();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.Cookie.HttpOnly = true;
+            });
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddSingleton(Mapper.Configuration);
@@ -137,6 +142,8 @@ namespace TN_Core_Web_App
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
+
 
             app.UseEndpoints(endpoints =>
             {

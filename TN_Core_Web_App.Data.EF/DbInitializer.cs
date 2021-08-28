@@ -60,6 +60,21 @@ namespace TN_Core_Web_App.Data.EF
                 var user = await _userManager.FindByNameAsync("admin");
                 await _userManager.AddToRoleAsync(user, "Admin");
             }
+            if (!_context.Contacts.Any())
+            {
+                _context.Contacts.Add(new Contact()
+                {
+                    Id = CommonConstants.DefaultContactId,
+                    Address = "491/13 Trường Chinh Phường 14 Quận Tân Bình ",
+                    Email = "tnwatchshop@gmail.com",
+                    Name = "TN Watch Shop",
+                    Phone = "0968 322 454",
+                    Status = Status.Active,
+                    Website = "http://vppkhaitri.com",
+                    Lat = 10.8001303,
+                    Lng = 106.6378858
+                });
+            }
             if (_context.Functions.Count() == 0)
             {
                 _context.Functions.AddRange(new List<Function>()

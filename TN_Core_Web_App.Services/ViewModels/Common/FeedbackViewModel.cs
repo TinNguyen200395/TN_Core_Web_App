@@ -1,29 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Enums;
-using TN_Core_Web_App.Data.Interfaces;
-using TN_Core_Web_App.Infrastructure.SharedKernel;
 
-namespace TN_Core_Web_App.Data.Entities
+namespace TN_Core_Web_App.Services.ViewModels.Common
 {
-    [Table("Feedbacks")]
-    public class Feedback : DomainEntity<int>, ISwitchable, IDateTracking
+    public class FeedbackViewModel
     {
-        public Feedback() { }
-
-        public Feedback(int id, string name, string email, string message, Status status)
-        {
-            Id = id;
-            Name = name;
-            Email = email;
-            Message = message;
-            Status = status;
-        }
+        public int Id { set; get; }
         [StringLength(250)]
         [Required]
         public string Name { set; get; }

@@ -1,35 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Enums;
-using TN_Core_Web_App.Infrastructure.SharedKernel;
 
-namespace TN_Core_Web_App.Data.Entities
+namespace TN_Core_Web_App.Services.ViewModels.Common
 {
-    [Table("ContactDetails")]
-    public class Contact : DomainEntity<string>
+    public class ContactViewModel
     {
-        public Contact() { }
-
-        public Contact(string id, string name, string phone, string email,
-            string website, string address, string other, double? longtitude, double? latitude, Status status)
-        {
-            Id = id;
-            Name = name;
-            Phone = phone;
-            Email = email;
-            Website = website;
-            Address = address;
-            Other = other;
-            Lng = longtitude;
-            Lat = latitude;
-            Status = status;
-        }
-
+        public string Id { set; get; }
         [StringLength(250)]
         [Required]
         public string Name { set; get; }

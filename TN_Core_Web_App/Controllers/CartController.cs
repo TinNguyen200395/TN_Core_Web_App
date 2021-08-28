@@ -8,17 +8,30 @@ using TN_Core_Web_App.Extensions;
 using TN_Core_Web_App.Models;
 using TN_Core_Web_App.Services.Interfaces;
 using TN_Core_Web_App.Utilities.Constants;
+using TN_Core_Web_App.Services.ViewModels.Product;
+using TN_Core_Web_App.Data.Enums;
+using System.Security.Claims;
+using TN_Core_Web_App.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace TN_Core_Web_App.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductService _productService;
-        private readonly IBillService _billService;
-        public CartController(IProductService productService, IBillService billService)
+        IProductService _productService;
+        IBillService _billService;
+        IViewRenderService _viewRenderService;
+        IConfiguration _configuration;
+        IEmailSender _emailSender;
+        public CartController(IProductService productService,
+            IViewRenderService viewRenderService, IEmailSender emailSender,
+            IConfiguration configuration, IBillService billService)
         {
             _productService = productService;
             _billService = billService;
+            _viewRenderService = viewRenderService;
+            _configuration = configuration;
+            _emailSender = emailSender;
         }
         [Route("cart.html", Name = "Cart")]
         public IActionResult Index()
@@ -27,9 +40,77 @@ namespace TN_Core_Web_App.Controllers
         }
 
         [Route("checkout.html", Name = "Checkout")]
+        [HttpGet]
         public IActionResult Checkout()
         {
-            return View();
+            var model = new CheckoutViewModel();
+            var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
+            if (session.Any(x => x.Color == null || x.Size == null))
+            {
+                return Redirect("/cart.html");
+            }
+
+            model.Carts = session;
+            return View(model);
+        }
+        [Route("checkout.html", Name = "Checkout")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CheckoutViewModel model)
+        {
+            var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
+
+            if (ModelState.IsValid)
+            {
+                if (session != null)
+                {
+                    var details = new List<BillDetailViewModel>();
+                    foreach (var item in session)
+                    {
+                        details.Add(new BillDetailViewModel()
+                        {
+                            Product = item.Product,
+                            Price = item.Price,
+                            ColorId = item.Color.Id,
+                            SizeId = item.Size.Id,
+                            Quantity = item.Quantity,
+                            ProductId = item.Product.Id
+                        });
+                    }
+                    var billViewModel = new BillViewModel()
+                    {
+                        CustomerMobile = model.CustomerMobile,
+                        BillStatus = BillStatus.New,
+                        CustomerAddress = model.CustomerAddress,
+                        CustomerName = model.CustomerName,
+                        CustomerMessage = model.CustomerMessage,
+                        BillDetails = details
+                    };
+                    if (User.Identity.IsAuthenticated == true)
+                    {
+                        billViewModel.CustomerId = Guid.Parse(User.GetSpecificClaim("UserId"));
+                    }
+                    _billService.Create(billViewModel);
+                    try
+                    {
+
+                        _billService.Save();
+
+                        //var content = await _viewRenderService.RenderToStringAsync("Cart/_BillMail", billViewModel);
+                        //Send mail
+                        //await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "New bill from Panda Shop", content);
+                        ViewData["Success"] = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewData["Success"] = false;
+                        ModelState.AddModelError("", ex.Message);
+                    }
+
+                }
+            }
+            model.Carts = session;
+            return View(model);
         }
         #region AJAX Request
         /// <summary>
@@ -43,6 +124,7 @@ namespace TN_Core_Web_App.Controllers
                 session = new List<ShoppingCartViewModel>();
             return new OkObjectResult(session);
         }
+
         /// <summary>
         /// Remove all products in cart
         /// </summary>
@@ -52,6 +134,7 @@ namespace TN_Core_Web_App.Controllers
             HttpContext.Session.Remove(CommonConstants.CartSession);
             return new OkObjectResult("OK");
         }
+
         /// <summary>
         /// Add product to cart
         /// </summary>
@@ -119,8 +202,8 @@ namespace TN_Core_Web_App.Controllers
                 HttpContext.Session.Set(CommonConstants.CartSession, cart);
             }
             return new OkObjectResult(productId);
-
         }
+
         /// <summary>
         /// Remove a product
         /// </summary>
@@ -149,6 +232,7 @@ namespace TN_Core_Web_App.Controllers
             }
             return new EmptyResult();
         }
+
         /// <summary>
         /// Update product quantity
         /// </summary>
@@ -182,6 +266,7 @@ namespace TN_Core_Web_App.Controllers
             }
             return new EmptyResult();
         }
+
         [HttpGet]
         public IActionResult GetColors()
         {

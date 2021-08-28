@@ -30,6 +30,21 @@ namespace TN_Core_Web_App.Controllers
             var categories = _productCategoryService.GetAll();
             return View(categories);
         }
+        [Route("{alias}-c.{id}.html")]
+        public IActionResult Catalog(int id, int? pageSize, string sortBy, int page = 1)
+        {
+            var catalog = new CatalogViewModel();
+            ViewData["BodyClass"] = "shop_grid_full_width_page";
+            if (pageSize == null)
+                pageSize = _configuration.GetValue<int>("PageSize");
+
+            catalog.PageSize = pageSize;
+            catalog.SortType = sortBy;
+            catalog.Data = _productService.GetAllPaging(id, string.Empty, page, pageSize.Value);
+            catalog.Category = _productCategoryService.GetById(id);
+
+            return View(catalog);
+        }
 
         [Route("search.html")]
         public IActionResult Search(string keyword, int? pageSize, string sortBy, int page = 1)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Entities;
+using TN_Core_Web_App.Services.ViewModels.Common;
 using TN_Core_Web_App.Services.ViewModels.Product;
 using TN_Core_Web_App.Services.ViewModels.System;
 
@@ -40,6 +41,12 @@ namespace TN_Core_Web_App.Services.AutoMapper
             CreateMap<BillDetailViewModel, BillDetail>()
               .ConstructUsing(c => new BillDetail(c.Id, c.BillId, c.ProductId,
               c.Quantity, c.Price, c.ColorId, c.SizeId));
+
+            CreateMap<ContactViewModel, Contact>()
+               .ConstructUsing(c => new Contact(c.Id, c.Name, c.Phone, c.Email, c.Website, c.Address, c.Other, c.Lng, c.Lat, c.Status));
+
+            CreateMap<FeedbackViewModel, Feedback>()
+                .ConstructUsing(c => new Feedback(c.Id, c.Name, c.Email, c.Message, c.Status));
         }
     }
 }

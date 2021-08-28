@@ -91,7 +91,7 @@ namespace TN_Core_Web_App.Data.EF
             builder.AddConfiguration(new TagConfiguration());
 
 
-        //    base.OnModelCreating(builder);
+     //    base.OnModelCreating(builder);
         }
         /// <summary>
         /// Tự động tất cả khi mà set 1 entity bất kỳ trong Idatetracking sẽ tự động thêm các trường tròn IDateTracking

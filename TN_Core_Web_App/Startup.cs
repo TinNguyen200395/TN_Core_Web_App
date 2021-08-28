@@ -79,6 +79,7 @@ namespace TN_Core_Web_App
             services.AddTransient<DbInitializer>();
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IViewRenderService, ViewRenderService>();
 
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
             services.AddControllersWithViews();
@@ -106,6 +107,8 @@ namespace TN_Core_Web_App
             services.AddTransient<ISlideRepository, SlideRepository>();
             services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
             services.AddTransient<IFooterRepository, FooterRepository>();
+            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
@@ -116,7 +119,8 @@ namespace TN_Core_Web_App
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
-
+            services.AddTransient<IFeedbackService, FeedbackService>();
+            services.AddTransient<IContactService, ContactService>();
 
         }
 

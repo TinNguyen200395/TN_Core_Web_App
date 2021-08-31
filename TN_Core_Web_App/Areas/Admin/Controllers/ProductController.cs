@@ -69,6 +69,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
         }
 
         [HttpPost]
+
         public IActionResult SaveEntity(ProductViewModel productVm)
         {
             if (!ModelState.IsValid)

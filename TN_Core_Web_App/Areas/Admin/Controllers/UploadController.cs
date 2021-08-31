@@ -56,6 +56,8 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
+
         public IActionResult UploadImage()
         {
             DateTime now = DateTime.Now;

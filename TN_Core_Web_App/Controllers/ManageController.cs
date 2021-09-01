@@ -496,7 +496,7 @@ namespace TN_Core_Web_App.Controllers
         {
             return string.Format(
                 AuthenicatorUriFormat,
-                _urlEncoder.Encode("TeduCoreApp"),
+                _urlEncoder.Encode("TN_Core_Web_App"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

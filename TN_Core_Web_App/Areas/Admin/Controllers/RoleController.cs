@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TN_Core_Web_App.Services.Interfaces;
-using TN_Core_Web_App.Services.ViewModels.System;
+using Microsoft.AspNetCore.Mvc;
+using TN_Core_Web_App.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TN_Core_Web_App.Application.ViewModels.System;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {

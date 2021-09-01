@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using OfficeOpenXml;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using TN_Core_Web_App.Application.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using TN_Core_Web_App.Data.Enums;
-using TN_Core_Web_App.Services.Interfaces;
-using TN_Core_Web_App.Services.ViewModels.Common;
-using TN_Core_Web_App.Services.ViewModels.Product;
+using TN_Core_Web_App.Application.ViewModels.Product;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TN_Core_Web_App.Application.ViewModels.Common;
 using TN_Core_Web_App.Utilities.Extensions;
+using System.IO;
+using OfficeOpenXml;
 using TN_Core_Web_App.Utilities.Helpers;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
@@ -19,8 +19,8 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
     public class BillController : BaseController
     {
         private readonly IBillService _billService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        public BillController(IBillService billService, IWebHostEnvironment hostingEnvironment)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public BillController(IBillService billService, IHostingEnvironment hostingEnvironment)
         {
             _billService = billService;
             _hostingEnvironment = hostingEnvironment;
@@ -127,7 +127,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
                 using (ExcelPackage package = new ExcelPackage(templateDocumentStream))
                 {
                     // add a new worksheet to the empty workbook
-                    ExcelWorksheet worksheet = package.Workbook.Worksheets["Sheet1"];
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets["TEDUOrder"];
                     // Data Acces, load order header data.
                     var billDetail = _billService.GetDetail(billId);
 

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TN_Core_Web_App.Utilities.DTO;
+using TN_Core_Web_App.Utilities.Dtos;
 
 namespace TN_Core_Web_App.Controllers.Components
 {

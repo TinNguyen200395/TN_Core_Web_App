@@ -9,23 +9,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using TN_Core_Web_App.Services.Interfaces;
-using TN_Core_Web_App.Services.ViewModels.Product;
+using TN_Core_Web_App.Application.Interfaces;
+using TN_Core_Web_App.Application.ViewModels.Product;
 using TN_Core_Web_App.Utilities.Helpers;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {
-
     public class ProductController : BaseController
     {
-        private readonly IProductService _productService;
-        private readonly IProductCategoryService _productCategoryService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
+        private IProductService _productService;
+        private IProductCategoryService _productCategoryService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ProductController(IProductService productService,
+        public ProductController(IProductService productService, 
             IProductCategoryService productCategoryService,
-            IWebHostEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
@@ -69,7 +67,6 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
         }
 
         [HttpPost]
-
         public IActionResult SaveEntity(ProductViewModel productVm)
         {
             if (!ModelState.IsValid)
@@ -136,6 +133,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
             var images = _productService.GetImages(productId);
             return new OkObjectResult(images);
         }
+
         [HttpPost]
         public IActionResult SaveWholePrice(int productId, List<WholePriceViewModel> wholePrices)
         {

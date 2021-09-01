@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TN_Core_Web_App.Application.ViewModels.Common;
+using TN_Core_Web_App.Application.ViewModels.Product;
 using TN_Core_Web_App.Data.Enums;
-using TN_Core_Web_App.Services.ViewModels.Common;
-using TN_Core_Web_App.Services.ViewModels.Product;
 using TN_Core_Web_App.Utilities.Extensions;
 
 namespace TN_Core_Web_App.Models

@@ -222,7 +222,6 @@ namespace TN_Core_Web_App.Controllers
         [ValidateAntiForgeryToken]
         [ValidateRecaptcha]
         [Route("register.html")]
-
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -231,14 +230,13 @@ namespace TN_Core_Web_App.Controllers
                 return View(model);
             }
             //MM/dd/yyy
-            var user = new AppUser
-            {
+            var user = new AppUser {
                 UserName = model.Email,
                 Email = model.Email,
                 FullName = model.FullName,
                 PhoneNumber = model.PhoneNumber,
-                BirthDay = model.BirthDay,
-                Status = Status.Active,
+                BirthDay  = model.BirthDay,
+                Status= Status.Active,
                 Avatar = string.Empty
             };
             var result = await _userManager.CreateAsync(user, model.Password);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TN_Core_Web_App.Controllers.Components
 {
-    public class BrandViewComponent: ViewComponent
+    public class BrandViewComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TN_Core_Web_App.Infrastructure.SharedKernel;
 
 namespace TN_Core_Web_App.Data.Entities
@@ -11,7 +9,7 @@ namespace TN_Core_Web_App.Data.Entities
     [Table("ProductQuantities")]
     public class ProductQuantity : DomainEntity<int>
     {
-
+ 
         [Column(Order = 1)]
         public int ProductId { get; set; }
 

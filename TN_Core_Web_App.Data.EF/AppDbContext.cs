@@ -1,33 +1,27 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using TN_Core_Web_App.Data.EF.Configurations;
-using TN_Core_Web_App.Data.EF.Extensions;
 using TN_Core_Web_App.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+using TN_Core_Web_App.Data.EF.Extensions;
+using TN_Core_Web_App.Data.EF.Configurations;
+using System.Linq;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TN_Core_Web_App.Data.Interfaces;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace TN_Core_Web_App.Data.EF
 {
-    /// <summary>
-    /// trong AppDbContext này ta kế thừa IdentityDbContext sử dụng luôn cái Identity mà không cần sử dụng cái dbcontext thông thường 
-    /// Để sử dụng IdentityDbContext ta cần cài Microsoft.AspNetCore.Identity;using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-//,Microsoft.EntityFrameworkCore.SqlServer,Microsoft.Extensions.Configuration)
-    /// </summary>
     public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
-
         }
+
         public DbSet<Language> Languages { set; get; }
         public DbSet<SystemConfig> SystemConfigs { get; set; }
         public DbSet<Function> Functions { get; set; }
@@ -63,9 +57,11 @@ namespace TN_Core_Web_App.Data.EF
         public DbSet<AdvertistmentPage> AdvertistmentPages { get; set; }
         public DbSet<Advertistment> Advertistments { get; set; }
         public DbSet<AdvertistmentPosition> AdvertistmentPositions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
+
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
 
             builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims")
@@ -79,25 +75,21 @@ namespace TN_Core_Web_App.Data.EF
             builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens")
                .HasKey(x => new { x.UserId });
 
-            #endregion
-            builder.AddConfiguration(new AdvertistmentPositionConfiguration());
+            #endregion Identity Config
+
+            builder.AddConfiguration(new TagConfiguration());
             builder.AddConfiguration(new BlogTagConfiguration());
             builder.AddConfiguration(new ContactDetailConfiguration());
             builder.AddConfiguration(new FooterConfiguration());
-            builder.AddConfiguration(new FunctionConfiguration());
             builder.AddConfiguration(new PageConfiguration());
+            builder.AddConfiguration(new FooterConfiguration());
             builder.AddConfiguration(new ProductTagConfiguration());
             builder.AddConfiguration(new SystemConfigConfiguration());
-            builder.AddConfiguration(new TagConfiguration());
+            builder.AddConfiguration(new AdvertistmentPositionConfiguration());
 
-
-     //    base.OnModelCreating(builder);
+            //base.OnModelCreating(builder);
         }
-        /// <summary>
-        /// Tự động tất cả khi mà set 1 entity bất kỳ trong Idatetracking sẽ tự động thêm các trường tròn IDateTracking
-        /// để không phải gắn bằng tay 
-        /// </summary>
-        /// <returns> </returns>
+
         public override int SaveChanges()
         {
             var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added);
@@ -117,13 +109,14 @@ namespace TN_Core_Web_App.Data.EF
             return base.SaveChanges();
         }
     }
+
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         public AppDbContext CreateDbContext(string[] args)
         {
             IConfiguration configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json").Build();
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json").Build();
             var builder = new DbContextOptionsBuilder<AppDbContext>();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             builder.UseSqlServer(connectionString);

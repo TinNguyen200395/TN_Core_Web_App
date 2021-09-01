@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TN_Core_Web_App.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
 using TN_Core_Web_App.Models.AccountViewModels;
-using TN_Core_Web_App.Utilities.DTO;
+using Microsoft.AspNetCore.Authorization;
+using TN_Core_Web_App.Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using TN_Core_Web_App.Utilities.Dtos;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {
@@ -18,8 +18,10 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger _logger;
-        public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager
-            , ILogger<LoginController> logger)
+
+
+        public LoginController(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager
+            ,ILogger<LoginController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -29,6 +31,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -44,20 +47,19 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
                     _logger.LogInformation("User logged in.");
                     return new OkObjectResult(new GenericResult(true));
                 }
-
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return new OkObjectResult(new GenericResult(false, "Tài khoản Đã bị khóa "));
+                    return new ObjectResult(new GenericResult(false, "Tài khoản đã bị khoá"));
                 }
                 else
                 {
-                    return new OkObjectResult(new GenericResult(false, "Tài khoản đăng nhập sai  "));
+                    return new ObjectResult(new GenericResult(false, "Đăng nhập sai"));
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return new OkObjectResult(new GenericResult(false, model));
+            return new ObjectResult(new GenericResult(false, model));
         }
 
     }

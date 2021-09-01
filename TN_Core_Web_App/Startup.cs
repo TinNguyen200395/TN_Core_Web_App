@@ -1,25 +1,30 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using PaulMiami.AspNetCore.Mvc.Recaptcha;
-using System;
-using TN_Core_Web_App.Authorization;
+using TN_Core_Web_App.Data;
+using TN_Core_Web_App.Models;
+using TN_Core_Web_App.Services;
 using TN_Core_Web_App.Data.EF;
-using TN_Core_Web_App.Data.EF.Responsitories;
 using TN_Core_Web_App.Data.Entities;
+using AutoMapper;
+using TN_Core_Web_App.Application.Interfaces;
+using TN_Core_Web_App.Data.EF.Repositories;
 using TN_Core_Web_App.Data.IRepositories;
+using TN_Core_Web_App.Application.Implementation;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using TN_Core_Web_App.Helpers;
 using TN_Core_Web_App.Infrastructure.Interfaces;
-using TN_Core_Web_App.Services;
-using TN_Core_Web_App.Services.Implementation;
-using TN_Core_Web_App.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using TN_Core_Web_App.Authorization;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace TN_Core_Web_App
 {
@@ -36,64 +41,67 @@ namespace TN_Core_Web_App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"),
-                    o => o.MigrationsAssembly("TN_Core_Web_App.Data.EF")));
-
-            services.AddDatabaseDeveloperPageExceptionFilter();
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                o => o.MigrationsAssembly("TN_Core_Web_App.Data.EF")));
 
             services.AddIdentity<AppUser, AppRole>()
-               .AddEntityFrameworkStores<AppDbContext>()
-               .AddDefaultTokenProviders();
-            //configue Identity
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Configure Identity
             services.Configure<IdentityOptions>(options =>
             {
-                //password settings
+                // Password settings
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
-                //lockout settings
+
+                // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
-                //User settings
+
+                // User settings
                 options.User.RequireUniqueEmail = true;
             });
-            services.AddRecaptcha(new RecaptchaOptions()
-            {
-                SiteKey= Configuration["Recaptcha:SiteKey"],
+
+            services.AddRecaptcha(new RecaptchaOptions() {
+                SiteKey = Configuration["Recaptcha:SiteKey"],
                 SecretKey = Configuration["Recaptcha:SecretKey"]
             });
-            services.AddAutoMapper();
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(2);
                 options.Cookie.HttpOnly = true;
             });
+            services.AddAutoMapper();
+            // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
-            services.AddSingleton(Mapper.Configuration);
 
+            services.AddSingleton(Mapper.Configuration);
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
-            services.AddTransient<DbInitializer>();
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IViewRenderService, ViewRenderService>();
 
-            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
-            services.AddControllersWithViews();
+            services.AddTransient<DbInitializer>();
 
-            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-            services.AddMvc();
+            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
+
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
-            //Responsitories
-            services.AddTransient<IProductCategoryRespository, ProductCategoryRepository>();
+
+            //Repositories
+            services.AddTransient<IProductCategoryRepository,ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<IPermissionRepository, PermissionRepository>();
             services.AddTransient<IBillRepository, BillRepository>();
             services.AddTransient<IBillDetailRepository, BillDetailRepository>();
@@ -102,14 +110,18 @@ namespace TN_Core_Web_App
             services.AddTransient<IProductQuantityRepository, ProductQuantityRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
             services.AddTransient<IWholePriceRepository, WholePriceRepository>();
+            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
             services.AddTransient<IBlogRepository, BlogRepository>();
+
             services.AddTransient<IBlogTagRepository, BlogTagRepository>();
             services.AddTransient<ISlideRepository, SlideRepository>();
             services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
+
             services.AddTransient<IFooterRepository, FooterRepository>();
-            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
-            services.AddTransient<IContactRepository, ContactRepository>();
-            //Services
+
+
+            //Serrvices
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
@@ -118,50 +130,43 @@ namespace TN_Core_Web_App
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<ICommonService, CommonService>();
-            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IContactService, ContactService>();
+
+            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
+
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory logerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
         {
-            logerFactory.AddFile("Logs/tn-{Date}.txt");
+            loggerFactory.AddFile("Logs/tn-{Date}.txt");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+                app.UseBrowserLink();
+                app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
-            app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
-            app.UseRouting();
-
             app.UseAuthentication();
-            app.UseAuthorization();
             app.UseSession();
-
-
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
-                    name: "area",
-                    pattern: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
+                routes.MapRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
-
+                routes.MapRoute(name: "areaRoute",
+                    template: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
             });
+          
         }
     }
 }

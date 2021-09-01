@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using TN_Core_Web_App.Data.Enums;
 using TN_Core_Web_App.Data.Interfaces;
+using TN_Core_Web_App.Data.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TN_Core_Web_App.Data.Entities
 {
     [Table("AppUsers")]
     public class AppUser : IdentityUser<Guid>, IDateTracking, ISwitchable
     {
-        public AppUser() { }
-        public AppUser(Guid id, string fullName, string userName,
+        public AppUser() {  }
+        public AppUser(Guid id, string fullName, string userName, 
             string email, string phoneNumber, string avatar, Status status)
         {
             Id = id;

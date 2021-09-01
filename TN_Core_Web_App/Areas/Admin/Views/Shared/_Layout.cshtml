@@ -8,20 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>TN Watch Shop ! | </title>
+    <title>Gentelella Alela! | </title>
 
     <!-- Bootstrap -->
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-
     <!-- Font Awesome -->
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <!-- NProgress -->
     <link href="~/lib/nprogress/nprogress.css" rel="stylesheet" />
     <!-- bootstrap-daterangepicker -->
     <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
-    <!-- ckeditor-->
-    <link href="~/lib/ckeditor/skins/moono/editor.css" rel="stylesheet" />
     <link href="~/lib/notifyjs/dist/styles/metro/notify-metro.css" rel="stylesheet" />
+    <link href="~/lib/ckeditor/skins/moono/editor.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="~/admin-side/css/custom.css" rel="stylesheet" />
     @RenderSection("Styles", required: false)
@@ -33,7 +31,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="site_title"><i class="fa fa-paw"></i> <span>TN Watch Shop !</span></a>
+                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -66,10 +64,9 @@
                         <a data-toggle="tooltip" data-placement="top" title="Lock">
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" asp-area="" asp-controller="admin" asp-action="Index">
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
-
                     </div>
                     <!-- /menu footer buttons -->
                 </div>
@@ -96,7 +93,7 @@
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                     <li>
                                         <a>
-                                            <span class="/admin-side/image"><img src="" alt="Profile /admin-side/image" /></span>
+                                            <span class="image"><img src="/admin-side/images/img.jpg" alt="Profile Image" /></span>
                                             <span>
                                                 <span>John Smith</span>
                                                 <span class="time">3 mins ago</span>
@@ -108,7 +105,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="/admin-side/image"><img src="" alt="Profile /admin-side/image" /></span>
+                                            <span class="image"><img src="/admin-side/images/img.jpg" alt="Profile Image" /></span>
                                             <span>
                                                 <span>John Smith</span>
                                                 <span class="time">3 mins ago</span>
@@ -120,7 +117,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="/admin-side/image"><img src="" alt="Profile /admin-side/image" /></span>
+                                            <span class="image"><img src="/admin-side/images/img.jpg" alt="Profile Image" /></span>
                                             <span>
                                                 <span>John Smith</span>
                                                 <span class="time">3 mins ago</span>
@@ -132,7 +129,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="/admin-side/image"><img src="" alt="Profile /admin-side/image" /></span>
+                                            <span class="image"><img src="/admin-side/images/img.jpg" alt="Profile Image" /></span>
                                             <span>
                                                 <span>@User.GetSpecificClaim("FullName")</span>
                                                 <span class="time">3 mins ago</span>
@@ -184,41 +181,41 @@
     <!-- NProgress -->
     <script src="~/lib/nprogress/nprogress.js"></script>
     <!-- Chart.js -->
-    <script src="~/lib/Chart.js/dist/Chart.js"></script>
-    <!-- mustache là thư viện dung để find view example product -->
     <script src="~/lib/mustache/mustache.js"></script>
+
+    <script src="~/lib/Chart.js/dist/Chart.js"></script>
     <!-- jQuery Sparklines -->
-    <script src="~/lib/jquery-sparkline/dist/jquery.sparkline.js"></script>
-    <!-- twbs-pagination -->
     <script src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
-    <!-- ckeditor -->
-    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/jquery-sparkline/dist/jquery.sparkline.js"></script>
 
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    @*!-- Flot -->
-        <script src="~/lib/flot/jquery.flot.js"></script>
-            <script src="~/lib/flot/jquery.flot.pie.js"></script>
-        <script src="~/lib/flot/jquery.flot.time.js"></script>
-        <script src="~/lib/flot/jquery.flot.stack.js"></script>
-        <script src="~/lib/Flot/jquery.flot.resize.js"></script>
-        <!-- Flot plugins -->
-        <script src="~/lib/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-        <script src="~/lib/flot-spline/js/jquery.flot.spline.js"></script>
-        <script src="~/lib/flot.curvedlines/curvedLines.js"></script>
-        <!-- DateJS -->
-        <script src="~/lib/DateJS/build/date.js"></script>*@
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <!-- Flot -->
+    @*<script src="../vendors/Flot/jquery.flot.js"></script>
+        <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+        <script src="../vendors/Flot/jquery.flot.time.js"></script>
+        <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+        <script src="../vendors/Flot/jquery.flot.resize.js"></script>*@
+
+    <!-- Flot plugins -->
+    @*<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="../vendors/flot.curvedlines/curvedLines.js"></script>*@
+    <!-- DateJS -->
+    @*<script src="../vendors/DateJS/build/date.js"></script>*@
     <!-- bootstrap-daterangepicker -->
     <script src="~/lib/moment/moment.js"></script>
     <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="~/lib/notifyjs/dist/notify.js"></script>
     <script src="~/lib/notifyjs/dist/styles/metro/notify-metro.js"></script>
     <script src="~/lib/bootbox/bootbox.js"></script>
+
+
     <script src="~/app/shared/tn.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="~/admin-side/js/custom.js"></script>
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>

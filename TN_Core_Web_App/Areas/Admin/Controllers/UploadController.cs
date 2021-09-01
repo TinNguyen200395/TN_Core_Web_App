@@ -1,19 +1,21 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using System.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {
-     public class UploadController : BaseController
+    public class UploadController : BaseController
     {
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        public UploadController(IWebHostEnvironment hostingEnvironment)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public UploadController(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
@@ -56,8 +58,6 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-
-
         public IActionResult UploadImage()
         {
             DateTime now = DateTime.Now;

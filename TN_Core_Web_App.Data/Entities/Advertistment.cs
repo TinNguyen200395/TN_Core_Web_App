@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Enums;
 using TN_Core_Web_App.Data.Interfaces;
 using TN_Core_Web_App.Infrastructure.SharedKernel;

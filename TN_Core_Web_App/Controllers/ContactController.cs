@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TN_Core_Web_App.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using TN_Core_Web_App.Application.Interfaces;
 using TN_Core_Web_App.Services;
 using Microsoft.Extensions.Configuration;
 using TN_Core_Web_App.Models;
 using TN_Core_Web_App.Utilities.Constants;
-using TN_Core_Web_App.Models.AccountViewModels;
 
 namespace TN_Core_Web_App.Controllers
 {
@@ -32,7 +31,7 @@ namespace TN_Core_Web_App.Controllers
             _viewRenderService = viewRenderService;
         }
         [Route("contact.html")]
-
+        [HttpGet]
         public IActionResult Index()
         {
             var contact = _contactService.GetById(CommonConstants.DefaultContactId);
@@ -50,7 +49,7 @@ namespace TN_Core_Web_App.Controllers
                 _feedbackService.Add(model.Feedback);
                 _feedbackService.SaveChanges();
                 var content = await _viewRenderService.RenderToStringAsync("Contact/_ContactMail", model.Feedback);
-                await _emailSender.SendEmailAsync(_configuration["MailSettings:UserName"], "Have new contact feedback", content);
+                await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "Have new contact feedback", content);
                 ViewData["Success"] = true;
             }
 

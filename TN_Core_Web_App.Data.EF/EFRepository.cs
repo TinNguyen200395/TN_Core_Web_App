@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 using TN_Core_Web_App.Infrastructure.Interfaces;
 using TN_Core_Web_App.Infrastructure.SharedKernel;
 
@@ -25,7 +24,7 @@ namespace TN_Core_Web_App.Data.EF
 
         public void Dispose()
         {
-            if (_context != null)
+          if(_context != null)
             {
                 _context.Dispose();
             }

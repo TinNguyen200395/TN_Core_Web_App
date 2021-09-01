@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Enums;
 using TN_Core_Web_App.Data.Interfaces;
 using TN_Core_Web_App.Infrastructure.SharedKernel;
@@ -15,7 +12,7 @@ namespace TN_Core_Web_App.Data.Entities
     public class Blog : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
     {
         public Blog() { }
-        public Blog(string name, string thumbnailImage,
+        public Blog(string name,string thumbnailImage,
            string description, string content, bool? homeFlag, bool? hotFlag,
            string tags, Status status, string seoPageTitle,
            string seoAlias, string seoMetaKeyword,
@@ -35,7 +32,7 @@ namespace TN_Core_Web_App.Data.Entities
             SeoDescription = seoMetaDescription;
         }
 
-        public Blog(int id, string name, string thumbnailImage,
+        public Blog(int id, string name,string thumbnailImage,
              string description, string content, bool? homeFlag, bool? hotFlag,
              string tags, Status status, string seoPageTitle,
              string seoAlias, string seoMetaKeyword,

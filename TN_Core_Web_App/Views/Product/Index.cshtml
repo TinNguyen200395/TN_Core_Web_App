@@ -1,5 +1,7 @@
-﻿@model List<TN_Core_Web_App.Services.ViewModels.Product.ProductCategoryViewModel>
-@{ ViewData["Title"] = "All product  categories"; }
+﻿@model List<TN_Core_Web_App.Application.ViewModels.Product.ProductCategoryViewModel>
+@{
+    ViewData["Title"] = "All product  categories";
+}
 <!-- Breadcrumbs -->
 
 <div class="breadcrumbs">
@@ -30,22 +32,24 @@
                             @foreach (var item in Model)
                             {
                                 var url = "/" + item.SeoAlias + "-c." + item.Id + ".html";
-                <li class="item col-lg-3 col-md-4 col-sm-6 col-xs-6 ">
-                    <div class="product-item">
-                        <div class="item-inner">
-                            <div class="product-thumbnail">
-                                <div class="icon-sale-label sale-left">Sale</div>
-                                <div class="icon-new-label new-right">New</div>
-                                <div class="pr-img-area">
-                                    <a title="@item.Name" href="@url">
-                                        <figure> <img class="first-img" src="@item.Image" alt="@item.Name"> <img class="hover-img" src="@item.Image" alt="@item.Name"></figure>
-                                    </a>
-                                </div>
+                                <li class="item col-lg-3 col-md-4 col-sm-6 col-xs-6 ">
+                                    <div class="product-item">
+                                        <div class="item-inner">
+                                            <div class="product-thumbnail">
+                                                <div class="icon-sale-label sale-left">Sale</div>
+                                                <div class="icon-new-label new-right">New</div>
+                                                <div class="pr-img-area">
+                                                    <a title="@item.Name" href="@url">
+                                                        <figure> <img class="first-img" src="@item.Image" alt="@item.Name"> <img class="hover-img" src="@item.Image" alt="@item.Name"></figure>
+                                                    </a>
+                                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </li>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            }
 
                         </ul>
                     </div>

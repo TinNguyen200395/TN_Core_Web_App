@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using TN_Core_Web_App.Application.Interfaces;
+using TN_Core_Web_App.Application.ViewModels.System;
 using TN_Core_Web_App.Extensions;
-using TN_Core_Web_App.Services.Interfaces;
-using TN_Core_Web_App.Services.ViewModels.System;
 using TN_Core_Web_App.Utilities.Constants;
 
 namespace TN_Core_Web_App.Areas.Admin.Components

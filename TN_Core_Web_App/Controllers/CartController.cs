@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TN_Core_Web_App.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using TN_Core_Web_App.Models;
-using TN_Core_Web_App.Services.Interfaces;
 using TN_Core_Web_App.Utilities.Constants;
-using TN_Core_Web_App.Services.ViewModels.Product;
+using Microsoft.AspNetCore.Http;
+using TN_Core_Web_App.Extensions;
+using TN_Core_Web_App.Application.Interfaces;
+using TN_Core_Web_App.Application.ViewModels.Product;
 using TN_Core_Web_App.Data.Enums;
 using System.Security.Claims;
 using TN_Core_Web_App.Services;
@@ -24,7 +24,7 @@ namespace TN_Core_Web_App.Controllers
         IConfiguration _configuration;
         IEmailSender _emailSender;
         public CartController(IProductService productService,
-            IViewRenderService viewRenderService, IEmailSender emailSender,
+            IViewRenderService viewRenderService,IEmailSender emailSender,
             IConfiguration configuration, IBillService billService)
         {
             _productService = productService;
@@ -239,7 +239,7 @@ namespace TN_Core_Web_App.Controllers
         /// <param name="productId"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        public IActionResult UpdateCart(int productId, int quantity, int color, int size)
+        public IActionResult UpdateCart(int productId, int quantity,int color, int size)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
             if (session != null)

@@ -1,23 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using TN_Core_Web_App.Models.ProductViewModels;
-using TN_Core_Web_App.Services.Interfaces;
+using TN_Core_Web_App.Application.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace TN_Core_Web_App.Controllers
 {
     public class ProductController : Controller
     {
-       private readonly IProductService _productService;
-        private readonly IProductCategoryService _productCategoryService;
-        private readonly IConfiguration _configuration;
-        private readonly IBillService _billService;
+        IProductService _productService;
+        IBillService _billService;
+        IProductCategoryService _productCategoryService;
+        IConfiguration _configuration;
         public ProductController(IProductService productService, IConfiguration configuration,
-             IBillService billService,
-             IProductCategoryService productCategoryService)
+            IBillService billService,
+            IProductCategoryService productCategoryService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
@@ -30,6 +31,7 @@ namespace TN_Core_Web_App.Controllers
             var categories = _productCategoryService.GetAll();
             return View(categories);
         }
+
         [Route("{alias}-c.{id}.html")]
         public IActionResult Catalog(int id, int? pageSize, string sortBy, int page = 1)
         {
@@ -45,6 +47,7 @@ namespace TN_Core_Web_App.Controllers
 
             return View(catalog);
         }
+
 
         [Route("search.html")]
         public IActionResult Search(string keyword, int? pageSize, string sortBy, int page = 1)
@@ -83,6 +86,7 @@ namespace TN_Core_Web_App.Controllers
                 Text = x.Name,
                 Value = x.Id.ToString()
             }).ToList();
+
             return View(model);
         }
 

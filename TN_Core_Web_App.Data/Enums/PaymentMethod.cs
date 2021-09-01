@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TN_Core_Web_App.Data.Enums
 {
@@ -11,23 +9,17 @@ namespace TN_Core_Web_App.Data.Enums
     {
         [Description("Cash on delivery")]
         CashOnDelivery,
-        [Description("Online Banking")]
-
+        [Description("Onlin Banking")]
         OnlinBanking,
         [Description("Payment Gateway")]
-
         PaymentGateway,
         [Description("Visa")]
-
         Visa,
-        [Description("MasterCard")]
-
+        [Description("Master Card")]
         MasterCard,
         [Description("PayPal")]
-
         PayPal,
         [Description("Atm")]
-
         Atm
     }
 }

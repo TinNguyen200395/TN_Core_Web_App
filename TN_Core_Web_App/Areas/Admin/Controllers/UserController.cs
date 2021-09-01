@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using TN_Core_Web_App.Application.Interfaces;
+using TN_Core_Web_App.Application.ViewModels.System;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Authorization;
 using TN_Core_Web_App.Authorization;
-using TN_Core_Web_App.Services.Interfaces;
-using TN_Core_Web_App.Services.ViewModels.System;
 
 namespace TN_Core_Web_App.Areas.Admin.Controllers
 {
@@ -15,6 +15,7 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAuthorizationService _authorizationService;
+
 
         public UserController(IUserService userService, IAuthorizationService authorizationService)
         {

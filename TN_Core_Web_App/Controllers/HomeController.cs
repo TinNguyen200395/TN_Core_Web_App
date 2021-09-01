@@ -1,20 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using TN_Core_Web_App.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using TN_Core_Web_App.Models;
-using TN_Core_Web_App.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using TN_Core_Web_App.Extensions;
+using TN_Core_Web_App.Application.Interfaces;
 
 namespace TN_Core_Web_App.Controllers
 {
     public class HomeController : Controller
     {
-
         private IProductService _productService;
         private IProductCategoryService _productCategoryService;
 

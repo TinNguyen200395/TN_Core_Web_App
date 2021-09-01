@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,6 @@ namespace TN_Core_Web_App.Services
         }
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            // khởi tạo SmtpClinet nó lấy tất cả các thông tin của port 
             SmtpClient client = new SmtpClient(_configuration["MailSettings:Server"])
             {
                 UseDefaultCredentials = false,

@@ -1,4 +1,4 @@
-﻿@model TN_Core_Web_App.Services.ViewModels.Product.BillViewModel
+﻿@model BillViewModel
 <h1>Panda Shop new bill</h1>
 <table>
     <tr>
@@ -32,12 +32,13 @@
                 <tbody>
                     @foreach (var item in Model.BillDetails)
                     {
-        <tr>
-            <td>@item.Product.Name</td>
-            <td>@item.Quantity</td>
-            <td>@item.Price</td>
-            <td>@((item.Quantity * item.Price).ToString("N0"))</td>
-        </tr>}
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price</td>
+                            <td>@((item.Quantity * item.Price).ToString("N0"))</td>
+                        </tr>
+                    }
                 </tbody>
                 <tfoot>
                     <tr>

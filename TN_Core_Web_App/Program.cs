@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,8 +16,8 @@ namespace TN_Core_Web_App
     {
         public static void Main(string[] args)
         {
-            var host = BuildWebHost(args);
-            using (var scope = host.Services.CreateScope())
+            var host =  BuildWebHost(args);
+            using(var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 

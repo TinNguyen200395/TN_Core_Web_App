@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Entities;
 
@@ -16,10 +13,12 @@ namespace TN_Core_Web_App.Areas.Admin.Controllers
         {
             _signInManager = signInManager;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

@@ -258,7 +258,7 @@ namespace TN_Core_Web_App.Data.EF
                 {
                     Id = "HomeMetaDescription",
                     Name = "Home Description",
-                    Value1 = "TN tedu",
+                    Value1 = "TN Shop Home",
                     Status = Status.Active
                 });
             }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TN_Core_Web_App.Services.ViewModels.Product;
+using TN_Core_Web_App.Application.ViewModels.Product;
 
 namespace TN_Core_Web_App.Models
 {
@@ -14,9 +14,6 @@ namespace TN_Core_Web_App.Models
 
         public decimal Price { set; get; }
 
-        public int ColorId { get; set; }
-
-        public int SizeId { get; set; }
         public ColorViewModel Color { get; set; }
 
         public SizeViewModel Size { get; set; }

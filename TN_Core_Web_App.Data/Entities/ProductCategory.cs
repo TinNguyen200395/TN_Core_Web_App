@@ -1,9 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TN_Core_Web_App.Data.Enums;
 using TN_Core_Web_App.Data.Interfaces;
 using TN_Core_Web_App.Infrastructure.SharedKernel;
@@ -12,15 +10,16 @@ namespace TN_Core_Web_App.Data.Entities
 {
     [Table("ProductCategories")]
     public class ProductCategory : DomainEntity<int>,
-         IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
+        IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
     {
         public ProductCategory()
         {
             Products = new List<Product>();
         }
-        public ProductCategory(string name , string description , int? parentId,int? homeOrder
-            , string image, bool? homeFlag,int sortOrder,Status status,string seoPageTitle,string seoAlias,
-            string seoKeywords,string seoDescription)
+
+        public ProductCategory(string name,string description, int? parentId,int? homeOrder,
+            string image,bool? homeFlag,int sortOrder,Status status,string seoPageTitle,string seoAlias,
+            string seoKeywords, string seoDescription)
         {
             Name = name;
             Description = description;
@@ -34,7 +33,6 @@ namespace TN_Core_Web_App.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoKeywords;
             SeoDescription = seoDescription;
-
         }
         public string Name { get; set; }
 

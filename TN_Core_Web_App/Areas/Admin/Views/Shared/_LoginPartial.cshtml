@@ -1,4 +1,3 @@
-﻿
 @using Microsoft.AspNetCore.Identity
 @using TN_Core_Web_App.Models
 @using TN_Core_Web_App.Extensions
@@ -7,8 +6,7 @@
 @inject UserManager<AppUser> UserManager
 
 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    @* <img src="@User.GetSpecificClaim("Avatar")"*@ 
-    <img src="/admin-side/images/img.jpg" alt="">@User.GetSpecificClaim("FullName") 
+    <img src="@User.GetSpecificClaim("Avatar")" alt="">@User.GetSpecificClaim("FullName")
     <span class=" fa fa-angle-down"></span>
 </a>
 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -24,6 +22,6 @@
         <form action="/Admin/Account/Logout" method="post" id="logoutForm" class="navbar-right">
             <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
         </form>
-      
     </li>
 </ul>
+

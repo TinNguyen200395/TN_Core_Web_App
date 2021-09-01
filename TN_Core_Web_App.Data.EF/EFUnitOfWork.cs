@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TN_Core_Web_App.Infrastructure.Interfaces;
 
 namespace TN_Core_Web_App.Data.EF
@@ -10,7 +8,6 @@ namespace TN_Core_Web_App.Data.EF
     public class EFUnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
-        // xây dựng constructor 
         public EFUnitOfWork(AppDbContext context)
         {
             _context = context;

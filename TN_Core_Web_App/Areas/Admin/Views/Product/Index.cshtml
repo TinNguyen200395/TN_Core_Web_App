@@ -7,13 +7,19 @@
 }
 @section Scripts{
     <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
-    <script src="~/app/controllers/product/quantity-management.js"></script>
+    <script src="~/app/controllers/product/product-quatity.js"></script>
     <script src="~/app/controllers/product/image-management.js"></script>
     <script src="~/app/controllers/product/whole-price-management.js"></script>
     <script src="~/app/controllers/product/index.js"></script>
     <script>
         var product = new productController();
         product.initialize();
+        var qutityProduct = new QuantityManagement();
+        qutityProduct.initialize();
+        var imageProduct = new ImageManagement();
+        imageProduct.initialize();
+        var wholePriceProduct = new WholePriceManagement();
+        wholePriceProduct.initialize()
     </script>
 }
 <div class="page-title">
@@ -54,7 +60,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                           
+
                             <th>Name</th>
                             <th>Category</th>
                             <th>Price</th>
@@ -93,7 +99,6 @@
 </div>
 <script id="table-template" type="x-tmpl-mustache">
     <tr>
-        
         <td>{{Name}}</td>
         <td>{{CategoryName}}</td>
         <td>{{Price}}</td>
@@ -109,8 +114,8 @@
         </th>
     </tr>
 </script>
-@Html.Partial("_AddEditModal.cshtml")
-@Html.Partial("_ImportExcelModal.cshtml")
-@Html.Partial("_QuantityManagement.cshtml")
-@Html.Partial("_ImageManagement.cshtml")
-@Html.Partial("_WholePriceManagement.cshtml")
+@await Html.PartialAsync("_AddEditModal")
+@await Html.PartialAsync("_ImportExcelModal")
+@await Html.PartialAsync("_QuantityManagement")
+@await Html.PartialAsync("_ImageManagement")
+@await Html.PartialAsync("_WholePriceManagement")

@@ -91,15 +91,15 @@
                     $('#txtOriginalPriceM').val(data.OriginalPrice);
                     $('#txtPromotionPriceM').val(data.PromotionPrice);
 
-                     $('#txtImage').val(data.ThumbnailImage);
+                    $('#txtImage').val(data.ThumbnailImage);
 
                     $('#txtTagM').val(data.Tags);
                     $('#txtMetakeywordM').val(data.SeoKeywords);
                     $('#txtMetaDescriptionM').val(data.SeoDescription);
                     $('#txtSeoPageTitleM').val(data.SeoPageTitle);
                     $('#txtSeoAliasM').val(data.SeoAlias);
-
-                    CKEDITOR.instances.txtContent.setData(data.Content);
+                    $('#txtDateCreated').val(data.CreatedDate);
+                //    CKEDITOR.instances.txtContent.setData(data.Content);
                     $('#ckStatusM').prop('checked', data.Status == 1);
                     $('#ckHotM').prop('checked', data.HotFlag);
                     $('#ckShowHomeM').prop('checked', data.HomeFlag);
@@ -155,7 +155,7 @@
                 var promotionPrice = $('#txtPromotionPriceM').val();
 
                 var image = $('#txtImage').val();
-
+                var datecreated = $('#txtDateCreated').val();
                 var tags = $('#txtTagM').val();
                 var seoKeyword = $('#txtMetakeywordM').val();
                 var seoMetaDescription = $('#txtMetaDescriptionM').val();
@@ -180,6 +180,7 @@
                         PromotionPrice: promotionPrice,
                         Description: description,
                         Content: content,
+                        DateCreated: datecreated,
                         HomeFlag: showHome,
                         HotFlag: hot,
                         Tags: tags,
@@ -332,6 +333,7 @@
         $('#txtMetaDescriptionM').val('');
         $('#txtSeoPageTitleM').val('');
         $('#txtSeoAliasM').val('');
+        $('#datecreated').val('');
 
         //CKEDITOR.instances.txtContentM.setData('');
         $('#ckStatusM').prop('checked', true);

@@ -186,5 +186,10 @@ namespace TN_Core_Web_App.Application.Implementation
         {
             return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
         }
+
+        public void Delete(int id)
+        {
+            _orderRepository.Remove(id);
+        }
     }
 }

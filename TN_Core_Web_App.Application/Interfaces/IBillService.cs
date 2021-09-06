@@ -11,6 +11,8 @@ namespace TN_Core_Web_App.Application.Interfaces
     {
         void Create(BillViewModel billVm);
         void Update(BillViewModel billVm);
+        void Delete(int id);
+
 
         PagedResult<BillViewModel> GetAllPaging(string startDate, string endDate, string keyword,
             int pageIndex, int pageSize);

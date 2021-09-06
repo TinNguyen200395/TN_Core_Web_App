@@ -1,4 +1,5 @@
-﻿var QuantityManagement = function () {
+﻿
+var QuantityManagement = function () {
     var cachedObj = {
         colors: [],
         sizes: []

@@ -57,7 +57,30 @@
             loadData(true);
         });
 
-      
+        $('body').on('click', '.btn-delete', function (e) {
+            e.preventDefault();
+            var that = $(this).data('id');
+            tn.confirm('Are you sure to delete?', function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Bill/Delete",
+                    data: { id: that },
+                    dataType: "json",
+                    beforeSend: function () {
+                        tn.startLoading();
+                    },
+                    success: function (response) {
+                        tn.notify('Delete successful', 'success');
+                        tn.stopLoading();
+                        loadData();
+                    },
+                    error: function (status) {
+                        tn.notify('Has an error in delete progress', 'error');
+                        tn.stopLoading();
+                    }
+                });
+            });
+        });
         $('body').on('click', '.btn-view', function (e) {
             e.preventDefault();
             var that = $(this).data('id');
@@ -414,10 +437,10 @@
         $('#paginationUL').twbsPagination({
             totalPages: totalsize,
             visiblePages: 7,
-            first: 'Đầu',
-            prev: 'Trước',
-            next: 'Tiếp',
-            last: 'Cuối',
+            first: 'first',
+            prev: 'prev',
+            next: 'next',
+            last: 'last',
             onPageClick: function (event, p) {
                 tn.configs.pageIndex = p;
                 setTimeout(callBack(), 200);

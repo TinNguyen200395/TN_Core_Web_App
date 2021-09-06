@@ -19,6 +19,7 @@ namespace TN_Core_Web_App.Infrastructure.Interfaces
         void Add(T entity);
 
         void Update(T entity);
+        void Update(K id, T entity, params Expression<Func<T, object>>[] updateProperties);
 
         void Remove(T entity);
 

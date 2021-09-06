@@ -225,7 +225,7 @@ namespace TN_Core_Web_App.Application.Implementation
             {
                 product.ProductTags.Add(productTag);
             }
-            _productRepository.Update(product);
+            _productRepository.Update(product.Id,product);
         }
 
         public List<ProductImageViewModel> GetImages(int productId)

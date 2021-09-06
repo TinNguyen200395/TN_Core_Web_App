@@ -77,7 +77,7 @@ namespace TN_Core_Web_App.Application.Implementation
             {
                 var product = _productRepository.FindById(detail.ProductId);
                 detail.Price = product.Price;
-                _orderDetailRepository.Update(detail);
+                _orderDetailRepository.Update(detail.Id,detail);
             }
 
             foreach (var detail in addedDetails)
@@ -89,14 +89,14 @@ namespace TN_Core_Web_App.Application.Implementation
 
             _orderDetailRepository.RemoveMultiple(existedDetails.Except(updatedDetails).ToList());
 
-            _orderRepository.Update(order);
+            _orderRepository.Update(order.Id,order);
         }
 
         public void UpdateStatus(int billId, BillStatus status)
         {
             var order = _orderRepository.FindById(billId);
             order.BillStatus = status;
-            _orderRepository.Update(order);
+            _orderRepository.Update(order.Id,order);
         }
 
         public List<SizeViewModel> GetSizes()

@@ -25,6 +25,7 @@ using TN_Core_Web_App.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using TN_Core_Web_App.Authorization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using TN_Core_Web_App.Middleware;
 
 namespace TN_Core_Web_App
 {
@@ -152,7 +153,7 @@ namespace TN_Core_Web_App
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseImageResizer();
             app.UseStaticFiles();
 
             app.UseAuthentication();

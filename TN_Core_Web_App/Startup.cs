@@ -26,6 +26,8 @@ using Microsoft.AspNetCore.Authorization;
 using TN_Core_Web_App.Authorization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using TN_Core_Web_App.Middleware;
+using Microsoft.AspNetCore.Mvc;
+using TN_Core_Web_App.Extensions;
 
 namespace TN_Core_Web_App
 {
@@ -48,7 +50,8 @@ namespace TN_Core_Web_App
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-
+            services.AddMemoryCache();
+            services.AddMinResponse();
             // Configure Identity
             services.Configure<IdentityOptions>(options =>
             {
@@ -92,8 +95,21 @@ namespace TN_Core_Web_App
 
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
-            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("Default",
+                    new CacheProfile()
+                    {
+                        Duration = 60
+                    });
+                options.CacheProfiles.Add("Never",
+                    new CacheProfile()
+                    {
+                        Location = ResponseCacheLocation.None,
+                        NoStore = true
+                    });
+            })
+                         .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
 
@@ -155,7 +171,7 @@ namespace TN_Core_Web_App
             }
             app.UseImageResizer();
             app.UseStaticFiles();
-
+            app.UseMinResponse();
             app.UseAuthentication();
             app.UseSession();
             app.UseMvc(routes =>

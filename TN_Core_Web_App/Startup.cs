@@ -81,6 +81,14 @@ namespace TN_Core_Web_App
                 options.Cookie.HttpOnly = true;
             });
             services.AddAutoMapper();
+            services.AddImageResizer();
+            services.AddAuthentication()
+               .AddFacebook(facebookOpts =>
+               {
+                   facebookOpts.AppId = Configuration["Authentication:Facebook:AppId"];
+                   facebookOpts.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+              
+               });
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();

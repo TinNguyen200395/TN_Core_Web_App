@@ -60,7 +60,7 @@ namespace TN_Core_Web_App.Middleware
             _memoryCache = memoryCache;
         }
 
-        public async Task Invoke(HttpContext context)
+       public async Task Invoke(HttpContext context)
         {
             var path = context.Request.Path;
 
@@ -106,7 +106,7 @@ namespace TN_Core_Web_App.Middleware
             imageData.Dispose();
 
         }
-
+   
         private SKData GetImageData(string imagePath, ResizeParams resizeParams, DateTime lastWriteTimeUtc)
         {
             // check cache and return if cached

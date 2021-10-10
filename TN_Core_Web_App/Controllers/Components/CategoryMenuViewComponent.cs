@@ -12,6 +12,7 @@ namespace TN_Core_Web_App.Controllers.Components
     public class CategoryMenuViewComponent : ViewComponent
     {
         private IProductCategoryService _productCategoryService;
+        //inject Memorycache
         private IMemoryCache _memoryCache;
         public CategoryMenuViewComponent(IProductCategoryService productCategoryService, IMemoryCache memoryCache)
         {
